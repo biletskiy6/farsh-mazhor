@@ -430,6 +430,8 @@
   box-shadow: $mainBoxShadow;
   animation: listItems 0.6s 0.2s both;
   cursor: pointer;
+  text-decoration: none;
+  color: inherit;
 
   &:hover {
     box-shadow: $mainBoxShadow;
@@ -763,7 +765,7 @@
   &-price {
     border-top: 1px solid #e5e5e5;
     font-weight: 700;
-    font-size: 18px;
+    font-size: 22px;
     text-align: right;
     small {
       font-weight: 400;
@@ -774,5 +776,24 @@
       transform: scale(1.1);
       transition: transform 0.25s ease;
     }
+  }
+}
+
+
+@media screen and (max-width: 1440px) {
+  .app-category-product {
+    width: calc(33.33% - 32px);
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .app-category-product {
+    width: calc(50% - 32px);
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .app-category-product {
+    width: calc(100% - 32px);
   }
 }

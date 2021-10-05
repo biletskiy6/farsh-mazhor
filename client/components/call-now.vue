@@ -10,7 +10,30 @@
 </template>
 
 <script>
+import gsap from "gsap"
+import { CSSRulePlugin } from "gsap/CSSRulePlugin"
+import { ScrollTrigger } from "gsap/ScrollTrigger"
+import { ScrollToPlugin } from "gsap/ScrollToPlugin"
+if (process.client) {
+  gsap.registerPlugin(ScrollTrigger)
+  gsap.registerPlugin(ScrollToPlugin)
+  gsap.registerPlugin(CSSRulePlugin)
+}
 export default {
   name: "call-now",
+  mounted() {
+    ScrollTrigger.create({
+      start: "top -80",
+      end: 99999,
+      toggleClass: {
+        className: "phone-call--active",
+        targets: ".phone-call",
+      },
+      // onToggle: (self) =>
+      //   self.isActive
+      //     ? document.body.classList.add("header-pin")
+      //     : document.body.classList.remove("header-pin"),
+    })
+  },
 }
 </script>
