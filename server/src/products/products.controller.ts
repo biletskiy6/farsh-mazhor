@@ -1,17 +1,22 @@
-import { Role } from 'src/auth/roles.enum';
 import {
   Body,
   Controller,
   Get,
-  HttpCode,
+  Param,
   Post,
+  Put,
   Query,
-  SetMetadata,
+  UploadedFile,
   UseGuards,
+  UseInterceptors,
 } from '@nestjs/common';
 import { CreateProductDto } from './dtos/create.product.dto';
 import { AuthGuard } from 'src/auth/guards/auth.guard';
 import { ProductService } from './products.service';
+import { FileInterceptor } from '@nestjs/platform-express/multer';
+import { diskStorage } from 'multer';
+import { extname } from 'path';
+import { UpdateProductDto } from './dtos/update.product.dto';
 
 @Controller('products')
 export class ProductController {
@@ -26,5 +31,35 @@ export class ProductController {
   @UseGuards(AuthGuard)
   create(@Body() createProductDto: CreateProductDto) {
     return this.productService.create(createProductDto);
+  }
+
+  @Put(':id')
+  @UseGuards(AuthGuard)
+  update(@Param() id, @Body() updateProductDto: UpdateProductDto) {
+    return this.productService.update(id, updateProductDto);
+  }
+
+  @Post('upload')
+  @UseGuards(AuthGuard)
+  @UseInterceptors(
+    FileInterceptor('image', {
+      storage: diskStorage({
+        destination: './public/products/',
+        filename: (req, file, cb) => {
+          const randomName = Array(32)
+            .fill(null)
+            .map(() => Math.round(Math.random() * 16).toString(16))
+            .join('');
+          return cb(null, `${randomName}${extname(file.originalname)}`);
+        },
+      }),
+    }),
+  )
+  uploadFile(@UploadedFile() file: Express.Multer.File) {
+    const response = {
+      originalName: file.originalname,
+      filename: file.filename,
+    };
+    return response;
   }
 }

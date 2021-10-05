@@ -18,7 +18,9 @@ import { VerificationsModule } from './verifications/verifications.module';
 import { MailerModule } from '@nestjs-modules/mailer';
 import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
 import config from './ormconfig';
+import { join } from 'path';
 
+console.log(__dirname);
 @Module({
   imports: [
     ConfigModule.forRoot({

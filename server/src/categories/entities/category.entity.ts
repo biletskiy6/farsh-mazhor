@@ -1,8 +1,8 @@
 import { Product } from '../../products/entities/product.entity';
 import { CoreEntity } from '../../common/entities/core.entity';
-import { Column, Entity, OneToMany } from 'typeorm';
+import { BeforeInsert, Column, Entity, OneToMany } from 'typeorm';
 import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
-
+import slugify from 'slugify';
 @Entity()
 export class Category extends CoreEntity {
   @Column()
@@ -18,6 +18,11 @@ export class Category extends CoreEntity {
   @Column({ nullable: true })
   @IsString()
   @IsOptional()
+  slug: string;
+
+  @Column({ nullable: true })
+  @IsString()
+  @IsOptional()
   cover_image?: string;
 
   @OneToMany((type) => Product, (product) => product.category)
@@ -25,4 +30,10 @@ export class Category extends CoreEntity {
 
   // @RelationId((restaurant: Restaurant) => restaurant.category_id)
   // restaurantsIds: number[]
+  @BeforeInsert()
+  transformSlug() {
+    this.slug = slugify(this.name, {
+      lower: true,
+    });
+  }
 }

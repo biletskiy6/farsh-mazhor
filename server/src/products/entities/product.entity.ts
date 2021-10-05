@@ -1,10 +1,8 @@
-import { ObjectType } from '@nestjs/graphql';
 import { Column, Entity, ManyToOne, JoinColumn } from 'typeorm';
 import { IsDecimal, IsOptional, IsString } from 'class-validator';
 import { CoreEntity } from '../../common/entities/core.entity';
 import { Category } from '../../categories/entities/category.entity';
 
-@ObjectType()
 @Entity()
 export class Product extends CoreEntity {
   @Column()

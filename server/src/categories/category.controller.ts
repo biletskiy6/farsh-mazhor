@@ -4,7 +4,9 @@ import {
   Body,
   Controller,
   Get,
+  Param,
   Post,
+  Put,
   Query,
   UploadedFile,
   UseGuards,
@@ -14,6 +16,8 @@ import { CategoryService } from './category.service';
 import { FileInterceptor } from '@nestjs/platform-express/multer';
 import { diskStorage } from 'multer';
 import { extname } from 'path';
+import { UpdateCategoryDto } from './dtos/update.category.dto';
+import { AuthGuard } from '../auth/guards/auth.guard';
 
 @Controller('categories')
 @ApiTags('categories')
@@ -25,15 +29,23 @@ export class CategoryController {
   }
 
   @Post()
+  @UseGuards(AuthGuard)
   create(@Body() createCategoryDto: CreateCategoryDto) {
     return this.categoryService.create(createCategoryDto);
   }
 
+  @Put(':id')
+  @UseGuards(AuthGuard)
+  update(@Param() id, @Body() updateCategoryDto: UpdateCategoryDto) {
+    return this.categoryService.update(id, updateCategoryDto);
+  }
+
   @Post('upload')
+  @UseGuards(AuthGuard)
   @UseInterceptors(
     FileInterceptor('image', {
       storage: diskStorage({
-        destination: './storage/categories/',
+        destination: './public/categories/',
         filename: (req, file, cb) => {
           const randomName = Array(32)
             .fill(null)
@@ -45,10 +57,9 @@ export class CategoryController {
     }),
   )
   uploadFile(@UploadedFile() file: Express.Multer.File) {
-    const response = {
+    return {
       originalName: file.originalname,
       filename: file.filename,
     };
-    return response;
   }
 }

@@ -5,12 +5,14 @@ import {
 } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { join } from 'path';
+import * as express from 'express';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-
   app.setGlobalPrefix('/api/v1');
+  app.use(express.static(join(process.cwd(), 'public')));
 
   const config = new DocumentBuilder()
     .setTitle('Uber Eats')
