@@ -1,19 +1,17 @@
-import axios from './request.service'
-const url = 'attachments'
-const name = 'Attachments'
+import axios from "./request.service"
 export default {
   buildFileData(data) {
     const fd = new FormData()
-    fd.append('data', data)
+    fd.append("image", data)
     return fd
   },
-  async send(payload, options) {
+  async send(url, payload, options) {
     try {
       const requestHeaders = {
-        'Content-Type': 'multipart/form-data',
+        "Content-Type": "multipart/form-data",
       }
       const { data } = await axios.post(
-        `${url}/update`,
+        `${url}/upload`,
         this.buildFileData(payload),
         options || requestHeaders
       )

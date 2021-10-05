@@ -176,6 +176,12 @@ body {
     top: 166px;
     letter-spacing: 1.3px;
     transform: rotate(90deg);
+    img {
+      display: inline-block;
+      margin-right: 8px;
+      width: 16px;
+      height: 16px;
+    }
   }
 
   .tag-line {

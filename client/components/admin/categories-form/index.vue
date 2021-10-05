@@ -5,15 +5,23 @@
     :map-form-fields="mapFormFields"
     entity-name="categories"
     @input="(payload) => $emit('input', payload)"
+    @edit="handleEdit"
+    @create="handleCreate"
   >
     <form @submit.prevent="handleSubmit">
-      <v-text-field v-model="formFields['title']" label="Название категории"></v-text-field>
+      <v-text-field
+        v-model="formFields['name']"
+        label="Название категории"
+      ></v-text-field>
       <v-textarea
         v-model="formFields['description']"
         name="input-7-1"
         label="Описание"
       ></v-textarea>
-      <v-file-input v-model="formFields['cover_image']" placeholder="Картинка"></v-file-input>
+      <v-file-input
+        v-model="formFields['cover_image']"
+        placeholder="Картинка"
+      ></v-file-input>
 
       <v-btn
         type="submit"
@@ -28,14 +36,17 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-import BaseForm from '../base-form'
-import formConfig from './formConfig'
-import { entityStatuses } from '@/utils/entity-statuses'
+import { mapGetters, mapActions } from "vuex"
+import BaseForm from "../base-form"
+import { entityStatuses } from "@/utils/entity-statuses"
+import { serializeForm } from "@/utils/forms"
+import { isFileInstance } from "@/utils/file"
+import fileService from "@/services/file.service"
+import { ENTITY_SUCCESSFULLY_CREATED } from '@/utils/messages'
 
 export default {
-  name: 'CategoriesForm',
-  components: {  BaseForm },
+  name: "CategoriesForm",
+  components: { BaseForm },
   props: {
     value: {
       type: Object,
@@ -56,22 +67,48 @@ export default {
       files: [],
       entityStatuses,
       timelineMenu: false,
-      formFields: { ...formConfig },
+      formFields: {
+        name: "",
+        description: "",
+        cover_image: null,
+      },
       dateTime: null,
     }
   },
   computed: {
     ...mapGetters({
-      entityLoading: 'events/loading',
-      loading: 'loading/loading',
-      locations: 'locations/data',
-      performers: 'performers/data',
+      entityLoading: "events/loading",
+      loading: "loading/loading",
+      locations: "locations/data",
+      performers: "performers/data",
     }),
   },
   methods: {
+    ...mapActions({
+      showShackbar: "snackbar/showSnack",
+      createCategory: "categories/create",
+    }),
+    handleEdit() {
+      console.log("eidt")
+    },
+    async handleCreate() {
+      try {
+        const data = serializeForm(this.formFields)
+        // eslint-disable-next-line no-unreachable
+        if (isFileInstance(this.formFields.cover_image)) {
+          const file = await fileService.send('categories', this.formFields.cover_image)
+          data.cover_image = file.filename
+        }
+        await this.createCategory({ data })
+        this.showSnackbar({
+          text: ENTITY_SUCCESSFULLY_CREATED,
+          color: "success",
+        })
+      } catch (e) {}
+    },
     handleSubmit() {
-      console.log(1)
-    }
+      return this.defaultValues ? this.handleEdit() : this.handleCreate()
+    },
   },
 }
 </script>

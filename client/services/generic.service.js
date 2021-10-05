@@ -1,4 +1,4 @@
-import axios from './request.service'
+import axios from "./request.service"
 const throwError = (error) => {
   // eslint-disable-next-line no-throw-literal
   throw {
@@ -33,7 +33,7 @@ export default (url, name) => ({
       const isAdmin = payload?.isAdmin
       const data = payload?.data
       const basePath = generateApiPath(url, isAdmin)
-      const response = await axios.post(`${basePath}/create`, data)
+      const response = await axios.post(`${basePath}`, data)
       return response.data
     } catch (error) {
       throwError(error)
@@ -45,7 +45,7 @@ export default (url, name) => ({
       const isAdmin = payload?.isAdmin
       const item = payload?.data
       const basePath = generateApiPath(url, isAdmin)
-      const { data } = await axios.put(`${basePath}/update`, item)
+      const { data } = await axios.put(`${basePath}`, item)
       return data
     } catch (error) {
       throwError(error)
@@ -55,7 +55,7 @@ export default (url, name) => ({
   async delete(id) {
     try {
       const data = await axios.delete(`${url}/delete/${id}`)
-      return { message: 'Deleted', data }
+      return { message: "Deleted", data }
     } catch (error) {
       // eslint-disable-next-line no-throw-literal
       throw {

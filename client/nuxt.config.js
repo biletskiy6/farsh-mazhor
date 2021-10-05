@@ -21,7 +21,7 @@ export default {
   plugins: [
     { src: "@/plugins/axiosport", ssr: true },
     { src: "@/plugins/vuelidate", ssr: true },
-    { src: "@/plugins/modal", ssr: false},
+    { src: "@/plugins/modal", ssr: false },
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -56,8 +56,8 @@ export default {
   fontawesome: {
     icons: {
       solid: true,
-      brands: true
-    }
+      brands: true,
+    },
   },
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
 
@@ -111,6 +111,11 @@ export default {
           error: colors.deepOrange.accent4,
           success: colors.green.accent3,
         },
+      },
+    },
+    defaultAssets: {
+      font: {
+        family: "Montserrat",
       },
     },
   },

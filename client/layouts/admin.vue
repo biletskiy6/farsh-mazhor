@@ -1,5 +1,6 @@
 <template>
   <v-app dark>
+    <client-only><app-snackbar></app-snackbar></client-only>
     <v-navigation-drawer
       v-model="drawer"
       :mini-variant="miniVariant"
@@ -89,8 +90,12 @@
 </template>
 
 <script>
+import AppSnackbar from '../components/notification/app-snackbar'
 import { menuAdminList } from '@/admin-setup/index'
+import ErrorMixin from '@/mixins/error'
 export default {
+  components: { AppSnackbar },
+  mixins: [ErrorMixin],
   data () {
     return {
       menuAdminList,

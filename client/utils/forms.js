@@ -1,7 +1,6 @@
 export const serializeForm = (formFields) => {
   const payload = {}
   for (const key in formFields) {
-    if (key.includes('attachment')) continue
     payload[key] = formFields[key]
   }
   return payload

@@ -76,6 +76,7 @@
       <div class="line"></div>
 
       <div class="e-shop">
+        <img src="/eco.png" alt="">
         <span>ECO</span>
       </div>
 

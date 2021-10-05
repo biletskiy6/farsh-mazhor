@@ -1,12 +1,12 @@
 <script>
 import { mapActions } from "vuex"
-import fileService from "@/services/file.service"
-import { serializeForm } from "@/utils/forms"
-import { isFileInstance } from "@/utils/file"
-import {
-  ENTITY_SUCCESSFULLY_CREATED,
-  ENTITY_SUCCESSFULLY_UPDATED,
-} from "@/utils/messages"
+// import fileService from "@/services/file.service"
+// import { serializeForm } from "@/utils/forms"
+// import { isFileInstance } from "@/utils/file"
+// import {
+//   ENTITY_SUCCESSFULLY_CREATED,
+//   ENTITY_SUCCESSFULLY_UPDATED,
+// } from "@/utils/messages"
 export default {
   name: "BaseForm",
   props: {
@@ -61,34 +61,36 @@ export default {
     emitFormFields() {
       this.$emit("input", this.formFields)
     },
-    async handleEdit() {
-      try {
-        const data = serializeForm(this.formFields)
-        if (isFileInstance(this.formFields.attachment)) {
-          const file = await fileService.send(this.formFields.attachment)
-          data.attachment_ids = [file.id]
-        }
-        // console.log(fileService, this.formFields.attachment)
-        await this.$store.dispatch(`${this.entityName}/update`, { data })
-        this.showSnackbar({
-          text: ENTITY_SUCCESSFULLY_UPDATED,
-          color: "success",
-        })
-      } catch (e) {}
+    handleEdit() {
+      this.$emit('edit')
+      // try {
+      //   const data = serializeForm(this.formFields)
+      //   if (isFileInstance(this.formFields.attachment)) {
+      //     const file = await fileService.send(this.formFields.attachment)
+      //     data.attachment_ids = [file.id]
+      //   }
+      //   // console.log(fileService, this.formFields.attachment)
+      //   await this.$store.dispatch(`${this.entityName}/update`, { data })
+      //   this.showSnackbar({
+      //     text: ENTITY_SUCCESSFULLY_UPDATED,
+      //     color: "success",
+      //   })
+      // } catch (e) {}
     },
-    async handleCreate() {
-      try {
-        const data = serializeForm(this.formFields)
-        if (isFileInstance(this.formFields.attachment)) {
-          const file = await fileService.send(this.formFields.attachment)
-          data.attachment_ids = [file.id]
-        }
-        await this.$store.dispatch(`${this.entityName}/create`, { data })
-        this.showSnackbar({
-          text: ENTITY_SUCCESSFULLY_CREATED,
-          color: "success",
-        })
-      } catch (e) {}
+    handleCreate() {
+      this.$emit('create')
+      // try {
+      //   const data = serializeForm(this.formFields)
+      //   if (isFileInstance(this.formFields.attachment)) {
+      //     const file = await fileService.send(this.formFields.attachment)
+      //     data.attachment_ids = [file.id]
+      //   }
+      //   await this.$store.dispatch(`${this.entityName}/create`, { data })
+      //   this.showSnackbar({
+      //     text: ENTITY_SUCCESSFULLY_CREATED,
+      //     color: "success",
+      //   })
+      // } catch (e) {}
     },
     async handleSubmit() {
       // eslint-disable-next-line no-unreachable
