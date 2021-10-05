@@ -1,77 +1,104 @@
 <template>
-  <v-row justify="center" align="center">
-    <v-col cols="12" sm="8" md="6">
-      <v-card class="logo py-4 d-flex justify-center">
-        <NuxtLogo />
-        <VuetifyLogo />
-      </v-card>
-      <v-card>
-        <v-card-title class="headline">
-          Welcome to the Vuetify + Nuxt.js template
-        </v-card-title>
-        <v-card-text>
-          <p>Vuetify is a progressive Material Design component framework for Vue.js. It was designed to empower developers to create amazing applications.</p>
-          <p>
-            For more information on Vuetify, check out the <a
-              href="https://vuetifyjs.com"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              documentation
-            </a>.
-          </p>
-          <p>
-            If you have questions, please join the official <a
-              href="https://chat.vuetifyjs.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-              title="chat"
-            >
-              discord
-            </a>.
-          </p>
-          <p>
-            Find a bug? Report it on the github <a
-              href="https://github.com/vuetifyjs/vuetify/issues"
-              target="_blank"
-              rel="noopener noreferrer"
-              title="contribute"
-            >
-              issue board
-            </a>.
-          </p>
-          <p>Thank you for developing with Vuetify and I look forward to bringing more exciting features in the future.</p>
-          <div class="text-xs-right">
-            <em><small>&mdash; John Leider</small></em>
-          </div>
-          <hr class="my-3">
-          <a
-            href="https://nuxtjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
+  <div class="home-page">
+    <call-now></call-now>
+    <app-modal name="product-content">
+      <template slot="body" slot-scope="{ params }">
+        {{ params }}
+      </template>
+    </app-modal>
+    <header class="main-header">
+      <div class="strips">
+        <div class="s-one"></div>
+        <div class="s-two"></div>
+        <div class="s-three"></div>
+      </div>
+
+      <div class="top-bar">
+        <ul>
+          <li>
+            <div class="logo">
+              <span>farsh mazhor</span>
+            </div>
+          </li>
+
+          <li>
+            <div class="search">
+              <i class="fa fa-search"></i>
+            </div>
+          </li>
+
+          <li>
+            <app-timer></app-timer>
+            <!-- <div class="menu-btn">
+              <span class="one"></span>
+              <span class="two"></span>
+            </div> -->
+          </li>
+        </ul>
+      </div>
+
+      <div class="data">
+        <div class="contact">
+          <span>Контакти</span>
+        </div>
+
+        <div class="tag">
+          <span
+            >Свіже мясо <br />
+            домашнього виробництва</span
           >
-            Nuxt Documentation
-          </a>
-          <br>
-          <a
-            href="https://github.com/nuxt/nuxt.js"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Nuxt GitHub
-          </a>
-        </v-card-text>
-        <v-card-actions>
-          <v-spacer />
-          <v-btn
-            color="primary"
-            nuxt
-            to="/inspire"
-          >
-            Continue
-          </v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-col>
-  </v-row>
+        </div>
+
+        <div class="year">{{ new Date().getFullYear() }}</div>
+
+        <div class="arrow-left">
+          <i class="fa fa-arrow-left"></i>
+        </div>
+
+        <div class="arrow-right">
+          <i class="fa fa-arrow-right"></i>
+        </div>
+
+        <div class="add">
+          <i class="fa fa-plus"></i>
+        </div>
+      </div>
+      <div class="main-header-image">
+        <img src="/hero.jpg" alt="" />
+        <div class="title">
+          <span>farsh<br />mazhor</span>
+        </div>
+        <div class="tag-line">
+          <span>Оглянути наші товари</span>
+        </div>
+      </div>
+
+      <div class="line"></div>
+
+      <div class="e-shop">
+        <span>ECO</span>
+      </div>
+
+      <div class="media">
+        <ul>
+          <li><font-awesome-icon :icon="['fab', 'facebook']" /></li>
+          <li><font-awesome-icon :icon="['fab', 'instagram']" /></li>
+          <li><font-awesome-icon :icon="['fab', 'twitter']" /></li>
+          <li><font-awesome-icon :icon="['fab', 'viber']" /></li>
+        </ul>
+      </div>
+    </header>
+    <app-categories></app-categories>
+    <app-products></app-products>
+  </div>
 </template>
+<script>
+import AppTimer from "~/components/app-timer"
+import AppCategories from "~/components/app-categories"
+import AppProducts from "~/components/app-products"
+import CallNow from "~/components/call-now"
+import AppModal from "~/components/modals/app-modal"
+export default {
+  components: { AppModal, CallNow, AppCategories, AppProducts, AppTimer },
+}
+</script>
