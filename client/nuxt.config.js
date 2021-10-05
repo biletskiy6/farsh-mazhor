@@ -1,5 +1,5 @@
 import colors from "vuetify/es5/util/colors"
-
+import webpack from "webpack"
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
@@ -15,12 +15,13 @@ export default {
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
-  css: [],
+  css: [{ src: "@/theme/index.scss" }],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
     { src: "@/plugins/axiosport", ssr: true },
     { src: "@/plugins/vuelidate", ssr: true },
+    { src: "@/plugins/modal", ssr: false},
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -32,6 +33,8 @@ export default {
     "@nuxtjs/eslint-module",
     // https://go.nuxtjs.dev/vuetify
     "@nuxtjs/vuetify",
+    "@nuxtjs/google-fonts",
+    "@nuxtjs/fontawesome",
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -43,6 +46,19 @@ export default {
     "@nuxtjs/auth",
   ],
 
+  googleFonts: {
+    families: {
+      Charm: [700],
+      Montserrat: [400, 500],
+    },
+  },
+
+  fontawesome: {
+    icons: {
+      solid: true,
+      brands: true
+    }
+  },
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
 
   // PWA module configuration: https://go.nuxtjs.dev/pwa
@@ -100,5 +116,12 @@ export default {
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
-  build: {},
+  build: {
+    plugins: [
+      new webpack.ProvidePlugin({
+        _: "lodash",
+      }),
+    ],
+    transpile: ["gsap"],
+  },
 }
