@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+  frontend:
+    build: ../client
+    container_name: farsh-mazhor-frontend
+    command:
+      - /bin/bash
+      - -c
+      - |
+        npm run build
+        npx nuxt start
+    restart: unless-stopped
+    environment:
+      - PORT=4000
+      - HOST=0.0.0.0
+  nginx:
+    image: nginx:stable-alpine
+    container_name: farsh-mazhor-nginx
+    ports:
+      - '80:80'
+    volumes:
+      - ./nginx/nginx.conf.prod:/etc/nginx/conf.d/nginx.conf
+    depends_on:
+      - frontend
