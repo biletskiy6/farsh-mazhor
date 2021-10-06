@@ -76,7 +76,7 @@
       <div class="line"></div>
 
       <div class="e-shop">
-        <img src="/eco.png" alt="">
+        <img src="/eco.png" alt="" />
         <span>ECO</span>
       </div>
 
@@ -89,17 +89,34 @@
         </ul>
       </div>
     </header>
-    <app-categories></app-categories>
+    <app-categories :items="categories"></app-categories>
     <app-products></app-products>
   </div>
 </template>
 <script>
+import { mapActions, mapGetters } from "vuex"
 import AppTimer from "~/components/app-timer"
 import AppCategories from "~/components/app-categories"
 import AppProducts from "~/components/app-products"
 import CallNow from "~/components/call-now"
 import AppModal from "~/components/modals/app-modal"
+
 export default {
   components: { AppModal, CallNow, AppCategories, AppProducts, AppTimer },
+  computed: {
+    ...mapGetters({
+      categories: "categories/data",
+    }),
+  },
+  async mounted() {
+    try {
+      await this.fetchCategories()
+    } catch (e) {}
+  },
+  methods: {
+    ...mapActions({
+      fetchCategories: "categories/fetchAll",
+    }),
+  },
 }
 </script>

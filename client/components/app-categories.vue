@@ -44,18 +44,20 @@
           </button>
         </div>
         <div class="app-left-content">
+          {{ getItem(10) }}
           <div class="app-left-content-header">
             <h1 class="content-title">Асортимент <span></span></h1>
             <a v-if="false" href="#" class="content-link">See More</a>
           </div>
+          <div class="categories"></div>
           <div class="app-content-field">
-            <a href="#decoration" class="product-box medium js-scroll-to">
+            <a v-if="getItem(0)" :href=" '#' + getItem(0).slug" class="product-box medium js-scroll-to">
               <img
                 class="product-box-image"
-                src="https://images.unsplash.com/photo-1531471689044-dd3ca86632e1?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=2250&q=80"
+                :src="getProductImage(getItem(0).cover_image)"
                 alt="Product"
               />
-              <div class="product-box-details">Decoration <span>55</span></div>
+              <div class="product-box-details">{{ getItem(0).name }} <span>55</span></div>
             </a>
             <div class="product-boxes">
               <div class="product-box-wrapper three">
@@ -144,16 +146,35 @@ import gsap from "gsap"
 import { CSSRulePlugin } from "gsap/CSSRulePlugin"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { ScrollToPlugin } from "gsap/ScrollToPlugin"
+import { getProductImage } from '../utils/get-product-image'
 if (process.client) {
   gsap.registerPlugin(ScrollTrigger)
   gsap.registerPlugin(ScrollToPlugin)
   gsap.registerPlugin(CSSRulePlugin)
 }
 export default {
+  props: {
+    items: {
+      type: Array,
+      default: () => []
+    },
+  },
+  computed: {
+    firstRowItems() {
+      return this.items.slice(0, 6)
+    },
+    secondRowItems() {
+      return this.items.slice(6)
+    }
+  },
   mounted() {
     this.scrollToSection()
   },
   methods: {
+    getProductImage,
+    getItem(index) {
+      return this.firstRowItems[index] ?? null
+    },
     scrollToSection() {
       console.log(gsap.utils.toArray(".js-scroll-to"))
       gsap.utils.toArray(".js-scroll-to").forEach(function (a) {
