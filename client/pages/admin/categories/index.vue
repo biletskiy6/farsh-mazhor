@@ -12,7 +12,7 @@
       >
         <template #top>
           <v-toolbar flat>
-            <v-toolbar-title>Categories</v-toolbar-title>
+            <v-toolbar-title>Категории</v-toolbar-title>
             <v-divider class="mx-4" inset vertical></v-divider>
             <v-spacer></v-spacer>
             <v-btn
@@ -21,7 +21,7 @@
               class="mb-2"
               @click="$router.push({ name: 'admin-categories-create' })"
             >
-              New Item
+              Новая категория
             </v-btn>
             <v-dialog v-model="dialogDelete" max-width="500px">
               <v-card>
@@ -31,7 +31,7 @@
                 <v-card-actions>
                   <v-spacer></v-spacer>
                   <v-btn color="blue darken-1" text @click="closeDelete"
-                    >Cancel</v-btn
+                    >Отмена</v-btn
                   >
                   <v-btn
                     :disabled="loading"
@@ -53,7 +53,7 @@
             class="mr-2"
             @click="
               $router.push({
-                name: 'admin-events-id-edit',
+                name: 'admin-categories-id-edit',
                 params: { id: item.id },
               })
             "
@@ -92,10 +92,10 @@ export default {
       },
       headers: [
         {
-          text: 'Name',
+          text: 'Название категории',
           value: 'name',
         },
-        { text: 'Actions', value: 'actions', sortable: false },
+        { text: 'Действия', value: 'actions', sortable: false },
       ],
       data: [],
     }
@@ -147,7 +147,7 @@ export default {
       try {
         const id = this?.editedItem?.id
         await this.dropItem({ id })
-        await this.deleteItemInLocalState(this.editedItem)
+        await this.deleteItemInLocalState(id)
         this.showSnackbar({ text: 'Successfully Deleted', color: 'success' })
       } catch (e) {}
       // this.data.splice(this.editedIndex, 1)

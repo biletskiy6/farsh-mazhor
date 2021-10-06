@@ -3,6 +3,7 @@ import { ApiTags } from '@nestjs/swagger';
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   Post,
@@ -28,6 +29,11 @@ export class CategoryController {
     return this.categoryService.findAll({ limit, page });
   }
 
+  @Get(':id')
+  fetchOne(@Param() id) {
+    return this.categoryService.fetchOne(id);
+  }
+
   @Post()
   @UseGuards(AuthGuard)
   create(@Body() createCategoryDto: CreateCategoryDto) {
@@ -38,6 +44,12 @@ export class CategoryController {
   @UseGuards(AuthGuard)
   update(@Param() id, @Body() updateCategoryDto: UpdateCategoryDto) {
     return this.categoryService.update(id, updateCategoryDto);
+  }
+
+  @Delete(':id')
+  @UseGuards(AuthGuard)
+  delete(@Param() id) {
+    return this.categoryService.delete(id);
   }
 
   @Post('upload')

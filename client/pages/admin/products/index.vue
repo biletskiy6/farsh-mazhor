@@ -12,16 +12,16 @@
       >
         <template #top>
           <v-toolbar flat>
-            <v-toolbar-title>Events </v-toolbar-title>
+            <v-toolbar-title>Товары</v-toolbar-title>
             <v-divider class="mx-4" inset vertical></v-divider>
             <v-spacer></v-spacer>
             <v-btn
               color="primary"
               dark
               class="mb-2"
-              @click="$router.push({ name: 'admin-events-create' })"
+              @click="$router.push({ name: 'admin-products-create' })"
             >
-              New Item
+              Добавить товар
             </v-btn>
             <v-dialog v-model="dialogDelete" max-width="500px">
               <v-card>
@@ -31,7 +31,7 @@
                 <v-card-actions>
                   <v-spacer></v-spacer>
                   <v-btn color="blue darken-1" text @click="closeDelete"
-                    >Cancel</v-btn
+                    >Отмена</v-btn
                   >
                   <v-btn
                     :disabled="loading"
@@ -53,7 +53,7 @@
             class="mr-2"
             @click="
               $router.push({
-                name: 'admin-events-id-edit',
+                name: 'admin-products-id-edit',
                 params: { id: item.id },
               })
             "
@@ -92,10 +92,10 @@ export default {
       },
       headers: [
         {
-          text: 'Title',
-          value: 'title',
+          text: 'Название Товара',
+          value: 'name',
         },
-        { text: 'Actions', value: 'actions', sortable: false },
+        { text: 'Действия', value: 'actions', sortable: false },
       ],
       data: [],
     }
@@ -108,7 +108,7 @@ export default {
   computed: {
     ...mapGetters({
       loading: 'loading/loading',
-      items: 'events/data',
+      items: 'products/data',
     }),
     formTitle() {
       return this.editedIndex > -1 ? 'Edit Item' : 'Add Item'
@@ -125,11 +125,11 @@ export default {
   },
   methods: {
     ...mapMutations({
-      deleteItemInLocalState: 'events/spliceItem',
+      deleteItemInLocalState: 'products/spliceItem',
     }),
     ...mapActions({
-      fetchAll: 'events/fetchAll',
-      dropItem: 'events/delete',
+      fetchAll: 'products/fetchAll',
+      dropItem: 'products/delete',
       showSnackbar: 'snackbar/showSnack',
     }),
 
@@ -147,7 +147,7 @@ export default {
       try {
         const id = this?.editedItem?.id
         await this.dropItem({ id })
-        await this.deleteItemInLocalState(this.editedItem)
+        await this.deleteItemInLocalState(id)
         this.showSnackbar({ text: 'Successfully Deleted', color: 'success' })
       } catch (e) {}
       // this.data.splice(this.editedIndex, 1)

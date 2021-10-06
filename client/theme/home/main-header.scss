@@ -3,7 +3,9 @@ body {
   margin: 0;
   padding: 0;
   width: 100%;
-  font-family: "Montserrat";
+  &.home-page {
+    font-family: "Montserrat";
+  }
 }
 .main-header {
   position: relative;

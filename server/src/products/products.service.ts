@@ -22,6 +22,13 @@ export class ProductService {
     });
     return paginateResponse(data, page, limit);
   }
+
+  async fetchOne(id) {
+    return await this.productRepository.findOne(id, {
+      relations: ['category'],
+    });
+  }
+
   async update(id, data) {
     if (data.cover_image) {
       const category = await this.productRepository.findOne(id);
@@ -33,8 +40,12 @@ export class ProductService {
         console.error(err);
       }
     }
-    await this.productRepository.update(id, { ...data });
+    return await this.productRepository.update(id, { ...data });
   }
+  async delete(id) {
+    return this.productRepository.delete(id);
+  }
+
   async create(CreateProductDto: CreateProductDto) {
     return await this.productRepository.save(
       this.productRepository.create(CreateProductDto),

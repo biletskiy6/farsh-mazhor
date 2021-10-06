@@ -22,6 +22,7 @@ export default {
     { src: "@/plugins/axiosport", ssr: true },
     { src: "@/plugins/vuelidate", ssr: true },
     { src: "@/plugins/modal", ssr: false },
+    { src: "@/plugins/quill-editor", ssr: false },
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components

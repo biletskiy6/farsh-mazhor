@@ -1,21 +1,28 @@
 <template>
   <div>
-    <layout-title title="Edit An Event"></layout-title>
+    <layout-title title="Редактирование продукта"></layout-title>
+    <products-form
+      v-if="eventLoaded"
+      ref="products-form"
+      :default-values="product"
+      :map-form-fields="mapFormFields"
+    ></products-form>
   </div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from "vuex"
 import LayoutTitle from "@/components/admin/layout-title"
+import ProductsForm from '@/components/admin/products-form'
 export default {
   name: "EditEvent",
-  components: { LayoutTitle },
+  components: { ProductsForm, LayoutTitle },
   layout: "admin",
   computed: {
     ...mapGetters({
-      event: "events/item",
+      product: "products/item",
       loading: "loading/loading",
-      eventLoaded: "events/entityLoaded",
+      eventLoaded: "products/entityLoaded",
     }),
     eventId() {
       return this.$route.params.id
@@ -24,17 +31,17 @@ export default {
   async mounted() {
     try {
       const id = this.eventId
-      await this.fetchEvent({ id })
+      await this.fetchProduct({ id })
     } catch (e) {}
   },
   methods: {
     ...mapActions({
-      fetchEvent: "events/fetchOne",
+      fetchProduct: "products/fetchOne",
     }),
     mapFormFields(formFields, defaultValues) {
       for (const key in formFields) {
+        if(key === 'cover_image') continue
         formFields[key] = defaultValues[key]
-        formFields.members = defaultValues.members.map((item) => item.id)
       }
     },
   },

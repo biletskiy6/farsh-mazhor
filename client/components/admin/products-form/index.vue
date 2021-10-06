@@ -11,13 +11,25 @@
     <form @submit.prevent="handleSubmit">
       <v-text-field
         v-model="formFields['name']"
-        label="Название категории"
+        label="Название Товара"
       ></v-text-field>
       <v-textarea
-        v-model="formFields['description']"
+        v-model="formFields['excerpt']"
         name="input-7-1"
-        label="Описание"
+        label="Краткое Описание"
       ></v-textarea>
+      <v-text-field v-model="formFields['price']" label="Цена"></v-text-field>
+      <quill-editor v-model="formFields['description']"></quill-editor>
+
+      <v-autocomplete
+        v-if="categories"
+        v-model="formFields['category']"
+        :items="categories"
+        label="Категория товара"
+        item-text="name"
+        item-value="id"
+      ></v-autocomplete>
+
       <v-file-input
         v-model="formFields['cover_image']"
         placeholder="Картинка"
@@ -38,6 +50,7 @@
 <script>
 import { mapGetters, mapActions } from "vuex"
 import BaseForm from "../base-form"
+import QuillEditor from "../quill-editor"
 import { entityStatuses } from "@/utils/entity-statuses"
 import { serializeForm } from "@/utils/forms"
 import { isFileInstance } from "@/utils/file"
@@ -48,8 +61,8 @@ import {
 } from "@/utils/messages"
 
 export default {
-  name: "CategoriesForm",
-  components: { BaseForm },
+  name: "ProductsForm",
+  components: { QuillEditor, BaseForm },
   props: {
     value: {
       type: Object,
@@ -71,8 +84,11 @@ export default {
       entityStatuses,
       timelineMenu: false,
       formFields: {
-        name: "",
-        description: "",
+        name: null,
+        excerpt: null,
+        price: null,
+        description: null,
+        category: null,
         cover_image: null,
       },
       dateTime: null,
@@ -80,17 +96,21 @@ export default {
   },
   computed: {
     ...mapGetters({
-      entityLoading: "events/loading",
       loading: "loading/loading",
-      locations: "locations/data",
-      performers: "performers/data",
+      categories: "categories/data",
     }),
+  },
+  async mounted() {
+    try {
+      await this.fetchCategories()
+    } catch (e) {}
   },
   methods: {
     ...mapActions({
       showShackbar: "snackbar/showSnack",
-      createCategory: "categories/create",
-      updateCategory: "categories/update",
+      createProduct: "products/create",
+      updateProduct: "products/update",
+      fetchCategories: "categories/fetchAll",
     }),
     async handleEdit() {
       try {
@@ -99,12 +119,12 @@ export default {
         // eslint-disable-next-line no-unreachable
         if (isFileInstance(this.formFields.cover_image)) {
           const file = await fileService.send(
-            "categories",
+            "products",
             this.formFields.cover_image
           )
           data.cover_image = file.filename
         }
-        await this.updateCategory({ id, data })
+        await this.updateProduct({ id, data })
         this.showShackbar({
           text: ENTITY_SUCCESSFULLY_UPDATED,
           color: "success",
@@ -117,12 +137,12 @@ export default {
         // eslint-disable-next-line no-unreachable
         if (isFileInstance(this.formFields.cover_image)) {
           const file = await fileService.send(
-            "categories",
+            "products",
             this.formFields.cover_image
           )
           data.cover_image = file.filename
         }
-        await this.createCategory({ data })
+        await this.createProduct({ data })
         this.showShackbar({
           text: ENTITY_SUCCESSFULLY_CREATED,
           color: "success",

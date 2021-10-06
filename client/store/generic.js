@@ -1,5 +1,5 @@
-import genericService from '../services/generic.service'
-import axios from '../services/request.service'
+import genericService from "../services/generic.service"
+import axios from "../services/request.service"
 
 const crudStore = ({ url, name }) => {
   const generic = genericService(url, name)
@@ -19,19 +19,19 @@ const crudStore = ({ url, name }) => {
           const isAdmin = payload?.isAdmin || false
           const forceFetch = payload?.forceFetch || true
           const items = getters.items
-          if(!items || forceFetch) {
-            commit('loading/setLoading', null, { root: true })
+          if (!items || forceFetch) {
+            commit("loading/setLoading", null, { root: true })
             const data = await generic.fetchAll(limit, params, isAdmin)
-            commit('fetchItemsSuccess', data)
-            commit('loading/resetLoading', null, { root: true })
+            commit("fetchItemsSuccess", data)
+            commit("loading/resetLoading", null, { root: true })
             return data
           }
           return items
         } catch (error) {
-          const errorMessage = await dispatch('generateError', error)
-          commit('error/setError', errorMessage, { root: true })
-          commit('fetchItemsFail', error)
-          commit('loading/resetLoading', null, { root: true })
+          const errorMessage = await dispatch("generateError", error)
+          commit("error/setError", errorMessage, { root: true })
+          commit("fetchItemsFail", error)
+          commit("loading/resetLoading", null, { root: true })
           throw error
         }
       },
@@ -41,96 +41,96 @@ const crudStore = ({ url, name }) => {
           const isAdmin = payload?.isAdmin || false
           const id = payload?.id
           const forceFetch = payload?.forceFetch || true
-          commit('resetItem')
+          commit("resetItem")
           if (!isItemExists || forceFetch) {
-            commit('loading/setLoading', null, { root: true })
+            commit("loading/setLoading", null, { root: true })
             const data = await generic.fetchOne(id, isAdmin)
-            commit('fetchItemSuccess', data)
-            commit('loading/resetLoading', null, { root: true })
-            commit('resetLoading')
+            commit("fetchItemSuccess", data)
+            commit("loading/resetLoading", null, { root: true })
+            commit("resetLoading")
             return data
           }
         } catch (error) {
-          const errorMessage = await dispatch('generateError', error)
-          commit('error/setError', errorMessage, { root: true })
-          commit('fetchItemsFail', error)
-          commit('loading/resetLoading', null, { root: true })
-          commit('resetLoading')
+          const errorMessage = await dispatch("generateError", error)
+          commit("error/setError", errorMessage, { root: true })
+          commit("fetchItemsFail", error)
+          commit("loading/resetLoading", null, { root: true })
+          commit("resetLoading")
           throw error
         }
       },
       async create({ commit, dispatch }, payload) {
         try {
           const isAdmin = payload?.isAdmin || false
-          commit('loading/setLoading', null, { root: true })
+          commit("loading/setLoading", null, { root: true })
           const data = await generic.create(payload, isAdmin)
-          commit('loading/resetLoading', null, { root: true })
+          commit("loading/resetLoading", null, { root: true })
           return data
         } catch (error) {
-          const errorMessage = await dispatch('generateError', error)
-          commit('error/setError', errorMessage, { root: true })
-          commit('createItemFail', error)
-          commit('loading/resetLoading', null, { root: true })
+          const errorMessage = await dispatch("generateError", error)
+          commit("error/setError", errorMessage, { root: true })
+          commit("createItemFail", error)
+          commit("loading/resetLoading", null, { root: true })
           throw error
         }
       },
       async update({ commit, dispatch }, payload) {
         try {
           const isAdmin = payload?.isAdmin || false
-          commit('loading/setLoading', null, { root: true })
+          commit("loading/setLoading", null, { root: true })
           const data = await generic.update(payload, isAdmin)
-          commit('loading/resetLoading', null, { root: true })
+          commit("loading/resetLoading", null, { root: true })
 
           // eslint-disable-next-line no-unreachable
           // console.log(data)
           // const item = data[0]
           // commit('updateItemSuccess', item)
-          commit('loading/resetLoading', null, { root: true })
+          commit("loading/resetLoading", null, { root: true })
           return data
           // return item
         } catch (error) {
-          const errorMessage = await dispatch('generateError', error)
-          commit('error/setError', errorMessage, { root: true })
-          commit('updateItemFail', error)
-          commit('loading/resetLoading', null, { root: true })
+          const errorMessage = await dispatch("generateError", error)
+          commit("error/setError", errorMessage, { root: true })
+          commit("updateItemFail", error)
+          commit("loading/resetLoading", null, { root: true })
 
           throw error
         }
       },
       async delete({ commit, dispatch }, payload) {
         try {
-          commit('loading/setLoading', null, { root: true })
+          commit("loading/setLoading", null, { root: true })
           const isAdmin = payload?.isAdmin || false
           const id = payload?.id
           const item = await generic.delete(id, isAdmin)
-          commit('deleteItemSuccess', item)
-          commit('loading/resetLoading', null, { root: true })
+          commit("deleteItemSuccess", item)
+          commit("loading/resetLoading", null, { root: true })
         } catch (error) {
-          const errorMessage = await dispatch('generateError', error)
-          commit('setError', errorMessage, { root: true })
-          commit('deleteItemError', error)
-          commit('loading/resetLoading', null, { root: true })
+          const errorMessage = await dispatch("generateError", error)
+          commit("setError", errorMessage, { root: true })
+          commit("deleteItemError", error)
+          commit("loading/resetLoading", null, { root: true })
           throw error
         }
       },
       async updateSpoofing({ commit, dispatch }, payload) {
-        commit('loading/setLoading', null, { root: true })
+        commit("loading/setLoading", null, { root: true })
         try {
           const { data } = await axios.post(
             `/admin/${url}/${payload.id}?_method=PUT`,
             payload.data
           )
-          commit('loading/resetLoading', null, { root: true })
+          commit("loading/resetLoading", null, { root: true })
           return data
         } catch (e) {
-          commit('loading/resetLoading', null, { root: true })
-          commit('error/setError', e.response.data, { root: true })
+          commit("loading/resetLoading", null, { root: true })
+          commit("error/setError", e.response.data, { root: true })
           throw e
         }
       },
       generateError(state, { error }) {
         const message = error?.response?.data
-        return message || 'Something went wrong'
+        return message || "Something went wrong"
       },
     },
     mutations: {
@@ -194,9 +194,9 @@ const crudStore = ({ url, name }) => {
       items: (state) => state.items,
       item: (state) => state.item,
       itemError: (state) => state.itemError,
-      data: ({ items }) => items && items?.data || [],
+      data: ({ items }) => (items && items?.data) || [],
       loading: ({ loading }) => loading,
-      entityLoaded: ({ item }) => item && Object.keys(item).length > 0
+      entityLoaded: ({ item }) => item && Object.keys(item).length > 0,
     },
   }
 }

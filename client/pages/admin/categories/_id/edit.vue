@@ -1,6 +1,6 @@
 <template>
   <div>
-    <layout-title title="Edit An Event"></layout-title>
+    <layout-title title="Редактирование категории"></layout-title>
     <categories-form
       v-if="eventLoaded"
       ref="events-form"
@@ -20,9 +20,9 @@ export default {
   layout: "admin",
   computed: {
     ...mapGetters({
-      event: "events/item",
+      event: "categories/item",
       loading: "loading/loading",
-      eventLoaded: "events/entityLoaded",
+      eventLoaded: "categories/entityLoaded",
     }),
     eventId() {
       return this.$route.params.id
@@ -31,17 +31,17 @@ export default {
   async mounted() {
     try {
       const id = this.eventId
-      await this.fetchEvent({ id })
+      await this.fetchCategory({ id })
     } catch (e) {}
   },
   methods: {
     ...mapActions({
-      fetchEvent: "events/fetchOne",
+      fetchCategory: "categories/fetchOne",
     }),
     mapFormFields(formFields, defaultValues) {
       for (const key in formFields) {
+        if(key === 'cover_image') continue
         formFields[key] = defaultValues[key]
-        formFields.members = defaultValues.members.map((item) => item.id)
       }
     },
   },

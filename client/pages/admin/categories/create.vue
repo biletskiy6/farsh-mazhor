@@ -1,6 +1,6 @@
 <template>
   <div>
-    <layout-title title="Create New Event"></layout-title>
+    <layout-title title="Создание категории"></layout-title>
     <categories-form ref="categories-form"></categories-form>
   </div>
 </template>

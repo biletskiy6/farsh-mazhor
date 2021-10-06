@@ -1,2 +1,2 @@
-export const ENTITY_SUCCESSFULLY_CREATED = 'Successfully Created'
-export const ENTITY_SUCCESSFULLY_UPDATED = 'Successfully Updated'
+export const ENTITY_SUCCESSFULLY_CREATED = "Успешно создано"
+export const ENTITY_SUCCESSFULLY_UPDATED = "Успешно отредактировано"

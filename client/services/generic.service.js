@@ -44,8 +44,9 @@ export default (url, name) => ({
     try {
       const isAdmin = payload?.isAdmin
       const item = payload?.data
+      const id = payload.id
       const basePath = generateApiPath(url, isAdmin)
-      const { data } = await axios.put(`${basePath}`, item)
+      const { data } = await axios.put(`${basePath}/${id}`, item)
       return data
     } catch (error) {
       throwError(error)
@@ -54,7 +55,7 @@ export default (url, name) => ({
 
   async delete(id) {
     try {
-      const data = await axios.delete(`${url}/delete/${id}`)
+      const data = await axios.delete(`${url}/${id}`)
       return { message: "Deleted", data }
     } catch (error) {
       // eslint-disable-next-line no-throw-literal

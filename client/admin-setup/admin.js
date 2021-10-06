@@ -7,17 +7,17 @@ export const menuAdminList = [
   },
   {
     icon: "mdi-apps",
-    title: "Categories",
+    title: "Категории",
     to: "/admin/categories",
   },
   {
     icon: "mdi-apps",
-    title: "Products",
+    title: "Продукты",
     to: "/admin/products",
   },
   {
     icon: "mdi-apps",
-    title: "My Account",
+    title: "На сайт",
     to: "/",
   },
 ]

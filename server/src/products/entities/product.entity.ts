@@ -38,5 +38,6 @@ export class Product extends CoreEntity {
 
   @Column({ nullable: true })
   @IsString()
+  @IsOptional()
   cover_image: string;
 }

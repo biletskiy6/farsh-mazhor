@@ -22,6 +22,9 @@ export class CategoryService {
     });
     return paginateResponse(data, page, limit);
   }
+  async fetchOne(id) {
+    return this.categoryRepository.findOne(id);
+  }
   async update(id, data) {
     if (data.cover_image) {
       const category = await this.categoryRepository.findOne(id);
@@ -36,6 +39,10 @@ export class CategoryService {
       }
     }
     await this.categoryRepository.update(id, { ...data });
+  }
+
+  async delete(id) {
+    return this.categoryRepository.delete(id);
   }
 
   async create(createCategoryDto: CreateCategoryDto) {

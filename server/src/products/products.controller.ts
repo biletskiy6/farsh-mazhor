@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   Post,
@@ -27,6 +28,11 @@ export class ProductController {
     return await this.productService.fetchAll({ limit, page });
   }
 
+  @Get(':id')
+  fetchOne(@Param() id) {
+    return this.productService.fetchOne(id);
+  }
+
   @Post()
   @UseGuards(AuthGuard)
   create(@Body() createProductDto: CreateProductDto) {
@@ -37,6 +43,12 @@ export class ProductController {
   @UseGuards(AuthGuard)
   update(@Param() id, @Body() updateProductDto: UpdateProductDto) {
     return this.productService.update(id, updateProductDto);
+  }
+
+  @Delete(':id')
+  @UseGuards(AuthGuard)
+  delete(@Param() id) {
+    return this.productService.delete(id);
   }
 
   @Post('upload')

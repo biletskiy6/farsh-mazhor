@@ -1,5 +1,5 @@
 <template>
-  <h4 class="h4 text-center pt-1 pb-2">{{ title }}</h4>
+  <h2 class="h2 text-center pt-1 pb-2">{{ title }}</h2>
 </template>
 
 <script>
