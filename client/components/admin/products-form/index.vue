@@ -30,6 +30,8 @@
         item-value="id"
       ></v-autocomplete>
 
+      <v-checkbox v-model="formFields['is_popular']"></v-checkbox>
+
       <v-file-input
         v-model="formFields['cover_image']"
         placeholder="Картинка"
@@ -90,6 +92,7 @@ export default {
         description: null,
         category: null,
         cover_image: null,
+        is_popular: false,
       },
       dateTime: null,
     }
