@@ -1,5 +1,5 @@
 import { Column, Entity, ManyToOne, JoinColumn } from 'typeorm';
-import { IsDecimal, IsOptional, IsString } from 'class-validator';
+import { IsBoolean, IsDecimal, IsOptional, IsString } from 'class-validator';
 import { CoreEntity } from '../../common/entities/core.entity';
 import { Category } from '../../categories/entities/category.entity';
 
@@ -32,6 +32,10 @@ export class Product extends CoreEntity {
     name: 'category_id',
   })
   category: Category;
+
+  @Column({ default: false, type: 'boolean', nullable: true })
+  @IsBoolean()
+  is_popular: boolean;
 
   // @RelationId((category: Category) => category.restaurants)
   // category_id: number;

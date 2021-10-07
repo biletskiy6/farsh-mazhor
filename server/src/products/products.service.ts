@@ -4,7 +4,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { CreateProductDto } from './dtos/create.product.dto';
 import { Product } from './entities/product.entity';
 import { paginateResponse } from '../utils/pagination';
-import fs from 'fs';
+import * as fs from 'fs';
 import { join } from 'path';
 
 @Injectable()
@@ -13,7 +13,17 @@ export class ProductService {
     @InjectRepository(Product)
     private readonly productRepository: Repository<Product>,
   ) {}
-  async fetchAll({ limit, page = 1 }) {
+  async fetchPopularProducts(limit, page) {
+    const skip = (page - 1) * limit;
+    const data = await this.productRepository.findAndCount({
+      take: limit,
+      skip,
+      where: { is_popular: true },
+      relations: ['category'],
+    });
+    return paginateResponse(data, page, limit);
+  }
+  async fetchAllProducts(limit, page) {
     const skip = (page - 1) * limit;
     const data = await this.productRepository.findAndCount({
       take: limit,
@@ -21,6 +31,11 @@ export class ProductService {
       relations: ['category'],
     });
     return paginateResponse(data, page, limit);
+  }
+  async fetchAll({ limit, page = 1, type }) {
+    return type === 'popular'
+      ? this.fetchPopularProducts(limit, page)
+      : this.fetchAllProducts(limit, page);
   }
 
   async fetchOne(id) {
@@ -43,7 +58,25 @@ export class ProductService {
     return await this.productRepository.update(id, { ...data });
   }
   async delete(id) {
-    return this.productRepository.delete(id);
+    const productToDelete = await this.productRepository.findOne(id);
+    if (productToDelete) {
+      await this.productRepository.delete(id);
+      const productToDeleteImage = productToDelete.cover_image;
+      const pathToDelete = join(
+        process.cwd(),
+        'public',
+        'products',
+        productToDeleteImage,
+      );
+      if (fs.existsSync(pathToDelete)) {
+        try {
+          fs.unlinkSync(pathToDelete);
+          //file removed
+        } catch (err) {
+          console.error(err);
+        }
+      }
+    }
   }
 
   async create(CreateProductDto: CreateProductDto) {

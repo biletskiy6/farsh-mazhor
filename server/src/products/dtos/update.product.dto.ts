@@ -6,4 +6,5 @@ export class UpdateProductDto extends PickType(Product, [
   'name',
   'description',
   'excerpt',
+  'is_popular',
 ]) {}
