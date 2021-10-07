@@ -1,6 +1,8 @@
 @import "variables";
+@import "mixins";
 @import "components/call-now";
 @import "components/app-modal";
+@import "components/sticky-navigation";
 @import "home/main-header";
 // Discover The Best
 
@@ -28,8 +30,8 @@
   }
 
   &-content {
-    overflow-y: auto;
-    height: 100%;
+    // overflow-y: auto;
+    // height: 100%;
   }
 }
 
@@ -139,6 +141,7 @@
   height: auto;
   object-fit: cover;
   transition: 0.2s linear;
+  max-height: 240px;
 }
 
 .product-amount {
@@ -377,6 +380,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 18px;
 }
 
 .content-title {
@@ -653,6 +657,10 @@
     margin-left: 0;
   }
 
+  .app-content-field.second .product-box-wrapper {
+    height: auto;
+  }
+
   .product-box-wrapper.two {
     flex: unset;
     max-height: unset;
@@ -778,7 +786,6 @@
     }
   }
 }
-
 
 @media screen and (max-width: 1440px) {
   .app-category-product {

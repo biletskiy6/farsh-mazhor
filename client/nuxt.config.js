@@ -91,13 +91,13 @@ export default {
   },
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
-  axios: {
-    proxy: true,
-    prefix: "/api/v1",
-  },
-  proxy: {
-    "/api/": process.env.BASE_URL,
-  },
+  // axios: {
+  //   proxy: true,
+  //   prefix: "/api/v1",
+  // },
+  // proxy: {
+  //   "/api/": process.env.BASE_URL,
+  // },
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
   vuetify: {
@@ -114,11 +114,6 @@ export default {
           error: colors.deepOrange.accent4,
           success: colors.green.accent3,
         },
-      },
-    },
-    defaultAssets: {
-      font: {
-        family: "Montserrat",
       },
     },
   },

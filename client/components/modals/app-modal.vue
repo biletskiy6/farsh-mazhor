@@ -5,7 +5,7 @@
       class="modal"
       :class="{ active: showAfterAnimation }"
     >
-      <div @click.stop="" class="modal-content" :style="{ height }">
+      <div @click.stop="" class="modal-content">
         <slot name="body" :params="params" />
       </div>
     </div>
@@ -92,4 +92,3 @@ export default {
   },
 }
 </script>
-

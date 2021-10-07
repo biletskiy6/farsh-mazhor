@@ -3,7 +3,7 @@
     <div v-for="item in 4" :key="item" class="app-category app-section">
       <div class="v-container">
         <div class="app-category__content">
-          <h2 class="content-title">Category Name</h2>
+          <h2 class="content-title">Вареники</h2>
           <div class="app-category-products">
             <div
               @click="
@@ -16,11 +16,11 @@
               <div class="product-image-container">
                 <div class="product-image">
                   <img
-                    src="https://images.unsplash.com/photo-1531471689044-dd3ca86632e1?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=2250&q=80"
+                    src="https://static.1000.menu/img/content/24714/vareniki-s-myasom-i-kapustoi_1514555681_1_max.jpg"
                     alt="Product"
                   />
                 </div>
-                <div class="product-box-details">Test</div>
+                <div class="product-box-details">Вареники с капустой</div>
               </div>
               <div class="product-description">
                 <p>
