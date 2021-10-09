@@ -9,9 +9,9 @@
         <div class="footer-socials">
           <app-socials>
             <div slot-scope="{ socials }">
-              <div v-for="social in socials" :key="social.name">
+              <a v-for="social in socials" :key="social.name" :href="social.href" target="_blank">
                 <font-awesome-icon :icon="['fab', social.name]" />
-              </div>
+              </a>
             </div>
           </app-socials>
         </div>

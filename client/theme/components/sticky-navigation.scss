@@ -9,27 +9,26 @@
   background-color: #fff;
   transition: all 0.25s ease;
   @include scrollbars(6px, #333, #d3d3d3);
+
   &.active {
     transform: translateY(0);
     transition: all 0.25s ease;
   }
+
   ul {
     display: flex;
     align-items: center;
     list-style-type: none;
   }
+
   li {
     margin-right: 6px;
+
     &:last-child {
       margin-right: 0;
     }
-    &.active {
-      a {
-        background-color: rgba($accent, 0.2);
-        color: $accent;
-      }
-    }
   }
+
   a {
     display: inline-flex;
     align-items: center;
@@ -43,11 +42,18 @@
     font-weight: 400;
     color: $black;
     background-color: rgba($black, 0.04);
+    transition: all .25s ease;
     img {
       width: 24px;
       height: 24px;
       border-radius: 100%;
       margin-right: 16px;
+    }
+
+    &.active {
+      background-color: rgba($accent, 0.2);
+      color: $accent;
+      transition: all .25s ease;
     }
   }
 }
@@ -66,6 +72,7 @@
 #custom-search {
   position: relative;
 }
+
 #custom-search .search-query {
   padding: 15px;
   width: 50px;

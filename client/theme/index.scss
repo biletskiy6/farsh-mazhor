@@ -2,6 +2,7 @@
 @import "mixins";
 @import "components/call-now";
 @import "components/app-modal";
+@import "components/app-popular";
 @import "components/sticky-navigation";
 @import "home/main-header";
 // Discover The Best
@@ -10,7 +11,7 @@
   background-color: #fafafd;
   border-radius: 32px;
   display: flex;
-  padding: 16px;
+  padding: 30px;
   overflow: hidden;
 }
 .v-container {
@@ -606,9 +607,12 @@
     }
   }
   .footer-socials {
-    div {
-      display: flex;
-      margin-right: 32px;
+    display: flex;
+    a {
+      display: inline-flex;
+      margin-right: 18px;
+      color: #a3acce;
+      text-decoration: none;
       &:last-child {
         margin-right: 0;
       }

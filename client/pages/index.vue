@@ -1,6 +1,6 @@
 <template>
   <div class="home-page">
-    <sticky-navigation></sticky-navigation>
+    <sticky-navigation v-model="searchQuery"></sticky-navigation>
     <call-now></call-now>
     <app-modal name="product-content">
       <template slot="body">
@@ -51,7 +51,7 @@
 
         <div class="tag">
           <span
-            >Свіже мясо <br />
+          >Свіже мясо <br/>
             домашнього виробництва</span
           >
         </div>
@@ -95,7 +95,7 @@
           alt=""
         />
         <div class="title">
-          <span>farsh<br />mazhor</span>
+          <span>farsh<br/>mazhor</span>
         </div>
         <!-- <div class="tag-line">
           <span>Оглянути наші товари</span>
@@ -105,21 +105,26 @@
       <div class="line"></div>
 
       <div class="eco">
-        <img src="/eco.png" alt="" />
+        <img src="/eco.png" alt=""/>
         <span>ECO</span>
       </div>
 
       <div class="media">
-        <ul>
-          <li><font-awesome-icon :icon="['fab', 'instagram']" /></li>
-          <li><font-awesome-icon :icon="['fab', 'viber']" /></li>
-        </ul>
+        <app-socials>
+          <ul slot-scope="{ socials }">
+            <li v-for="social in socials" :key="social.name" >
+              <a :href="social.href" target="_blank">
+                <font-awesome-icon :icon="['fab', social.name]"/>
+              </a>
+            </li>
+          </ul>
+        </app-socials>
       </div>
 
       <button class="scroll-down">
         <svg
-          version="1.1"
           id="Layer_1"
+          version="1.1"
           xmlns="http://www.w3.org/2000/svg"
           xmlns:xlink="http://www.w3.org/1999/xlink"
           x="0px"
@@ -136,16 +141,15 @@
         </svg>
       </button>
     </header>
-    <app-categories :items="categories"></app-categories>
-    <app-products></app-products>
+    <app-popular></app-popular>
+    <app-products :search-query="searchQuery"></app-products>
     <app-contacts></app-contacts>
     <app-footer></app-footer>
   </div>
 </template>
 <script>
-import { mapActions, mapGetters } from "vuex"
+import {mapActions, mapGetters} from "vuex"
 // import AppTimer from "~/components/app-timer"
-import AppCategories from "~/components/app-categories"
 import AppProducts from "~/components/app-products"
 import CallNow from "~/components/call-now"
 import AppModal from "~/components/modals/app-modal"
@@ -153,13 +157,16 @@ import StickyNavigation from "~/components/sticky-navigation"
 import AppFooter from "~/components/app-footer"
 import AppLogo from "~/components/app-logo"
 import AppContacts from "~/components/app-contacts.vue"
+import AppSocials from "~/components/app-socials.vue"
+import AppPopular from "@/components/app-popular"
 
 export default {
   components: {
+    AppPopular,
     AppModal,
     CallNow,
-    AppCategories,
     AppProducts,
+    AppSocials,
     // AppTimer,
     StickyNavigation,
     AppContacts,
@@ -171,10 +178,16 @@ export default {
       categories: "categories/data",
     }),
   },
+  data() {
+    return {
+      searchQuery: '',
+    }
+  },
   async mounted() {
     try {
       await this.fetchCategories()
-    } catch (e) {}
+    } catch (e) {
+    }
   },
   methods: {
     ...mapActions({

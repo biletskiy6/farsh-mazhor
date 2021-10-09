@@ -261,6 +261,9 @@ body {
   .media ul li {
     font-size: 18px;
     margin-bottom: 24px;
+    a {
+      color: inherit;
+    }
     &:last-child {
       margin-bottom: 0;
     }

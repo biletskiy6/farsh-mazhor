@@ -27,7 +27,7 @@ export default {
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
-  components: true,
+  components: false,
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
@@ -91,13 +91,13 @@ export default {
   },
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
-  // axios: {
-  //   proxy: true,
-  //   prefix: "/api/v1",
-  // },
-  // proxy: {
-  //   "/api/": process.env.BASE_URL,
-  // },
+  axios: {
+    proxy: true,
+    prefix: "/api/v1",
+  },
+  proxy: {
+    "/api/": process.env.BASE_URL,
+  },
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
   vuetify: {
