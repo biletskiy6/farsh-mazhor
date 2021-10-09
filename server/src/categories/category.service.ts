@@ -42,6 +42,25 @@ export class CategoryService {
   }
 
   async delete(id) {
+    const categoryToDelete = await this.categoryRepository.findOne(id);
+    if (categoryToDelete) {
+      await this.categoryRepository.delete(id);
+      const categoryToDeleteImage = categoryToDelete.cover_image;
+      const pathToDelete = join(
+        process.cwd(),
+        'public',
+        'categories',
+        categoryToDeleteImage,
+      );
+      if (fs.existsSync(pathToDelete)) {
+        try {
+          fs.unlinkSync(pathToDelete);
+          //file removed
+        } catch (err) {
+          console.error(err);
+        }
+      }
+    }
     return this.categoryRepository.delete(id);
   }
 

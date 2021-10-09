@@ -86,11 +86,14 @@
   background-image: url("/search-icon.svg");
   background-position: center;
   margin-bottom: 0;
+  outline: none;
   cursor: pointer;
   text-indent: 16px;
+  &:focus {
+    outline: none;
+  }
 }
 
-/* Hide Text when unfocused plus fallbacks */
 #custom-search .search-query::placeholder {
   color: transparent;
   -webkit-transition: all 0.8s;
@@ -121,17 +124,15 @@
   transition: all 0.8s;
 }
 
-/* Style when Search is selected */
 #custom-search .search-query:focus {
   border-radius: 50px;
-  border: 2px solid #ccc;
+  border: 2px solid $accent;
   background-color: #fff;
   width: 350px;
   color: #333;
   background-position-x: calc(100% - 16px);
 }
 
-/* Style for placeholder value plus fallbacks */
 #custom-search .search-query:focus::placeholder {
   color: #cccccc;
 }
@@ -156,7 +157,6 @@
   color: #cccccc;
 }
 
-/* Style for Button */
 #custom-search button {
   display: none;
   justify-content: center;

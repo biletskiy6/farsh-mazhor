@@ -16,14 +16,12 @@ export class Product extends CoreEntity {
 
   @Column()
   @IsString()
+  @IsOptional()
   description: string;
 
-  @Column({
-    type: 'decimal',
-    default: 0,
-  })
-  @IsDecimal()
-  price: number;
+  @Column()
+  @IsString()
+  price: string;
 
   @ManyToOne((type) => Category, (category) => category.products, {
     onDelete: 'SET NULL',

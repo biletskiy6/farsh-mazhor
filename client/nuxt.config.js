@@ -74,6 +74,7 @@ export default {
   auth: {
     redirect: {
       login: "/sign-in",
+      home: "/admin/",
     },
     strategies: {
       local: {
@@ -83,7 +84,7 @@ export default {
             method: "post",
             propertyName: "access_token",
           },
-          user: { url: "/me", method: "get", propertyName: false },
+          user: false,
           logout: false,
         },
       },

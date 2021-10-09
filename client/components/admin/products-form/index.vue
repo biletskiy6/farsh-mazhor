@@ -19,7 +19,10 @@
         label="Краткое Описание"
       ></v-textarea>
       <v-text-field v-model="formFields['price']" label="Цена"></v-text-field>
-      <quill-editor v-model="formFields['description']"></quill-editor>
+      <quill-editor
+        v-model="formFields['description']"
+        :content="formFields['description']"
+      ></quill-editor>
 
       <v-autocomplete
         v-if="categories"
@@ -30,7 +33,10 @@
         item-value="id"
       ></v-autocomplete>
 
-      <v-checkbox v-model="formFields['is_popular']"></v-checkbox>
+      <v-checkbox
+        v-model="formFields['is_popular']"
+        label="Популярный товар"
+      ></v-checkbox>
 
       <v-file-input
         v-model="formFields['cover_image']"
@@ -43,7 +49,7 @@
         :disabled="loading"
         class="mt-1"
         color="primary"
-        >Save</v-btn
+        >Сохранить</v-btn
       >
     </form>
   </base-form>
@@ -117,7 +123,7 @@ export default {
     }),
     async handleEdit() {
       try {
-        const data = serializeForm(this.formFields)
+        const data = _.omit(serializeForm(this.formFields), ["cover_image"])
         const id = this.$route.params.id
         // eslint-disable-next-line no-unreachable
         if (isFileInstance(this.formFields.cover_image)) {

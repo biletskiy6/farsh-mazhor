@@ -6,13 +6,13 @@ export const menuAdminList = [
     to: "/admin/",
   },
   {
-    icon: "mdi-apps",
+    icon: "mdi-google-ads",
     title: "Категории",
     to: "/admin/categories",
   },
   {
-    icon: "mdi-apps",
-    title: "Продукты",
+    icon: "mdi-apple",
+    title: "Товары",
     to: "/admin/products",
   },
   {

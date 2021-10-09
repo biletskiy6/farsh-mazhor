@@ -6,7 +6,7 @@
           <v-flex xs12 sm8 md4>
             <v-card class="elevation-12">
               <v-toolbar color="primary" dark flat>
-                <v-toolbar-title>Login form</v-toolbar-title>
+                <v-toolbar-title>Войти в аккаунт</v-toolbar-title>
                 <v-spacer></v-spacer>
               </v-toolbar>
               <v-card-text>
@@ -21,7 +21,7 @@
                   <v-text-field
                     id="password"
                     v-model="password"
-                    label="Password"
+                    label="Пароль"
                     name="password"
                     type="password"
                   ></v-text-field>
@@ -34,7 +34,7 @@
                   :disabled="loading"
                   :loading="loading"
                   @click="handleSubmit"
-                  >Login</v-btn
+                  >Войти</v-btn
                 >
               </v-card-actions>
             </v-card>

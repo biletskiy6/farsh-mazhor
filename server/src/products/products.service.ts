@@ -6,7 +6,6 @@ import { Product } from './entities/product.entity';
 import { paginateResponse } from '../utils/pagination';
 import * as fs from 'fs';
 import { join } from 'path';
-
 @Injectable()
 export class ProductService {
   constructor(

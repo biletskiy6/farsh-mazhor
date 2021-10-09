@@ -1,28 +1,18 @@
 <template>
   <div class="home-page">
-    <sticky-navigation v-model="searchQuery"></sticky-navigation>
+    <sticky-navigation
+      v-model="searchQuery"
+      :categories="categories"
+    ></sticky-navigation>
     <call-now></call-now>
     <app-modal name="product-content">
-      <template slot="body">
+      <template slot="body" slot-scope="{ params }">
         <div class="modal-description">
-          <h2>Вареники з капустою</h2>
-          <div class="modal-text">
-            <p v-for="item in 10" :key="item">
-              Одна з трьох традиційних начинок для вареників! Приємну кислинку
-              капусти пом’якшує смак тоненького тіста — неперевершена смакота!
-              Не усім сподобається ця вегетаріанська та пісна страва. Тільки ті,
-              хто виплекав у собі любов до оливок та броколі, оцінить всю розкіш
-              цього смаку. Спробуйте підсмажити зварені вареники з капустою на
-              вершковому маслі до утворення хрусткої скоринки. Також дуже смачно
-              буде заправити їх домашньою сметаною. Насолоджуйтесь!
-            </p>
-          </div>
+          <h2>{{ params.name }}</h2>
+          <div class="modal-text" v-html="params.description"></div>
         </div>
         <div class="modal-image">
-          <img
-            src="https://images.ctfassets.net/3s5io6mnxfqz/5GlOYuzg0nApcehTPlbJMy/140abddf0f3f93fa16568f4d035cd5e6/AdobeStock_175165460.jpeg"
-            alt=""
-          />
+          <img :src="productImage(params)" alt="" />
         </div>
       </template>
     </app-modal>
@@ -35,7 +25,7 @@
       </div>
       <div class="top-bar">
         <app-logo></app-logo>
-        <a class="phone" href="#">+380730262720</a>
+        <a class="phone" href="tel:0983557306">098-355-73-06</a>
       </div>
 
       <!-- <app-timer></app-timer> -->
@@ -51,7 +41,7 @@
 
         <div class="tag">
           <span
-          >Свіже мясо <br/>
+            >Свіже м'ясо <br />
             домашнього виробництва</span
           >
         </div>
@@ -95,7 +85,7 @@
           alt=""
         />
         <div class="title">
-          <span>farsh<br/>mazhor</span>
+          <span>farsh<br />mazhor</span>
         </div>
         <!-- <div class="tag-line">
           <span>Оглянути наші товари</span>
@@ -105,16 +95,16 @@
       <div class="line"></div>
 
       <div class="eco">
-        <img src="/eco.png" alt=""/>
+        <img src="/eco.png" alt="" />
         <span>ECO</span>
       </div>
 
       <div class="media">
         <app-socials>
           <ul slot-scope="{ socials }">
-            <li v-for="social in socials" :key="social.name" >
+            <li v-for="social in socials" :key="social.name">
               <a :href="social.href" target="_blank">
-                <font-awesome-icon :icon="['fab', social.name]"/>
+                <font-awesome-icon :icon="['fab', social.name]" />
               </a>
             </li>
           </ul>
@@ -142,13 +132,16 @@
       </button>
     </header>
     <app-popular></app-popular>
-    <app-products :search-query="searchQuery"></app-products>
+    <app-products
+      :search-query="searchQuery"
+      :categories="categories"
+    ></app-products>
     <app-contacts></app-contacts>
     <app-footer></app-footer>
   </div>
 </template>
 <script>
-import {mapActions, mapGetters} from "vuex"
+import { mapActions, mapGetters } from "vuex"
 // import AppTimer from "~/components/app-timer"
 import AppProducts from "~/components/app-products"
 import CallNow from "~/components/call-now"
@@ -173,21 +166,21 @@ export default {
     AppFooter,
     AppLogo,
   },
-  computed: {
-    ...mapGetters({
-      categories: "categories/data",
-    }),
-  },
   data() {
     return {
-      searchQuery: '',
+      searchQuery: "",
     }
+  },
+  computed: {
+    ...mapGetters({
+      productImage: "products/image",
+      categories: "categories/data",
+    }),
   },
   async mounted() {
     try {
       await this.fetchCategories()
-    } catch (e) {
-    }
+    } catch (e) {}
   },
   methods: {
     ...mapActions({

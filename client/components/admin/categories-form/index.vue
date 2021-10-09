@@ -94,7 +94,7 @@ export default {
     }),
     async handleEdit() {
       try {
-        const data = serializeForm(this.formFields)
+        const data = _.omit(serializeForm(this.formFields), ["cover_image"])
         const id = this.$route.params.id
         // eslint-disable-next-line no-unreachable
         if (isFileInstance(this.formFields.cover_image)) {
