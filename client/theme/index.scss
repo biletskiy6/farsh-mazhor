@@ -522,6 +522,100 @@
   display: none;
 }
 
+#map-container {
+  height: 400px;
+}
+
+.app-contacts {
+  display: flex;
+  flex-wrap: wrap;
+  &__left {
+    flex: 2;
+    margin-right: 30px;
+  }
+  &__right {
+    flex: 1;
+    h2 {
+      margin-bottom: 18px;
+    }
+  }
+  ul {
+    list-style-type: none;
+    li {
+      display: flex;
+      align-items: flex-start;
+      svg {
+        color: rgba($black, 0.56);
+        margin-right: 8px;
+      }
+      margin-bottom: 18px;
+      p,
+      a {
+        text-decoration: none;
+        color: $black;
+        display: inline-block;
+      }
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+  .schedule {
+    &-container {
+      p {
+        margin-bottom: 8px;
+      }
+    }
+  }
+}
+
+.app-footer {
+  background-color: $dark;
+  color: #a3acce;
+  padding: 40px 16px 24px;
+
+  .footer-logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .footer-copyrights {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-left: -16px;
+    margin-right: -16px;
+    margin-top: 16px;
+    flex-wrap: wrap;
+    &__col {
+      width: calc(33.3% - 32px);
+      margin-left: 16px;
+      margin-right: 16px;
+      &.author {
+        font-size: 13px;
+      }
+      &.socials {
+        display: flex;
+        justify-content: center;
+      }
+      &.rights {
+        display: flex;
+        justify-content: flex-end;
+        font-size: 13px;
+      }
+    }
+  }
+  .footer-socials {
+    div {
+      display: flex;
+      margin-right: 32px;
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  }
+}
+
 @media screen and (max-width: 1200px) {
   .app-content-field {
     flex-direction: column;

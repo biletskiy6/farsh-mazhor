@@ -22,9 +22,15 @@ if (process.client) {
 export default {
   name: "call-now",
   mounted() {
+    // if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+    //   document
+    //     .querySelector(".phone-call")
+    //     .classList.remove("phone-call--active")
+    // }
+    // window.addEventListener("scroll", this.hideOnPageEnd)
     ScrollTrigger.create({
       start: "top -80",
-      end: 99999,
+
       toggleClass: {
         className: "phone-call--active",
         targets: ".phone-call",
@@ -34,6 +40,21 @@ export default {
       //     ? document.body.classList.add("header-pin")
       //     : document.body.classList.remove("header-pin"),
     })
+  },
+  beforeDestroy() {
+    // window.removeEventListener("scroll", this.hideOnPageEnd)
+  },
+  methods: {
+    // hideOnPageEnd() {
+    //   if (
+    //     window.innerHeight + window.scrollY >=
+    //     document.body.offsetHeight - 40
+    //   ) {
+    //     document
+    //       .querySelector(".phone-call")
+    //       .classList.remove("phone-call--active")
+    //   }
+    // },
   },
 }
 </script>

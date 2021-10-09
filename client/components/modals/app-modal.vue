@@ -5,6 +5,10 @@
       class="modal"
       :class="{ active: showAfterAnimation }"
     >
+      <button class="app-modal__close">
+        <font-awesome-icon :icon="['fas', 'times']" />
+      </button>
+
       <div @click.stop="" class="modal-content">
         <slot name="body" :params="params" />
       </div>
@@ -44,9 +48,15 @@ export default {
   beforeMount() {
     this.$modal.$event.$on("show", (modal, params) => {
       this.params = params
+      document.documentElement.style.setProperty("overflow", "hidden")
+      document.body.style.setProperty("overflow", "hidden")
+      document.body.style.setProperty("touch-action", "none")
       return this.name === modal ? (this.visible = true) : null
     })
     this.$modal.$event.$on("hide", (modal) => {
+      document.documentElement.style.removeProperty("overflow", "hidden")
+      document.body.style.removeProperty("overflow", "hidden")
+      document.body.style.removeProperty("touch-action", "none")
       return this.name === modal ? (this.visible = false) : null
     })
   },

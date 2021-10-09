@@ -1,4 +1,31 @@
 .app-modal {
+  &__close {
+    position: absolute;
+    right: 40px;
+    top: 40px;
+    z-index: 1;
+    display: inline-flex;
+    background-color: #f2f2f2;
+    border-radius: 100%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.25s ease;
+
+    svg {
+      color: rgba($black, 0.56);
+    }
+    &:hover {
+      background-color: $black;
+      transition: all 0.25s ease;
+      svg {
+        color: #fff;
+        transition: all 0.25s ease;
+      }
+    }
+  }
   .modal {
     position: fixed;
     width: 100%;
@@ -35,8 +62,8 @@
       overflow: hidden;
       border-radius: 16px;
       // padding: 50px 30px 30px 30px;
-      width: 75vw;
-      height: 75vh;
+      width: 80vw;
+      height: 80vh;
       //height: 80%;
       left: 50%;
       top: 50%;
@@ -104,5 +131,43 @@
   100% {
     transform: translate(-50%, -50%) scale(1) translateZ(0) translate3d(0, 0, 0);
     opacity: 0;
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .app-modal {
+    .modal {
+      &-content {
+        // display: none;
+        flex-direction: column;
+      }
+      &-description {
+        flex: 3;
+      }
+      &-image {
+        flex: 1;
+        max-height: 20vh;
+        img {
+          width: 100%;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .app-modal {
+    .modal {
+      display: flex;
+      flex-direction: column;
+      &-content {
+        // display: none;
+        margin-top: auto;
+        width: 100vw;
+        height: 90vh;
+        bottom: 0;
+        transform: none;
+      }
+    }
   }
 }
