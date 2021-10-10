@@ -18,7 +18,7 @@ import { VerificationsModule } from './verifications/verifications.module';
 import { MailerModule } from '@nestjs-modules/mailer';
 import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
 import config from './ormconfig';
-import { join } from 'path';
+
 
 console.log(__dirname);
 @Module({
@@ -31,11 +31,6 @@ console.log(__dirname);
           : '.env.production',
       validationSchema: Joi.object({
         NODE_ENV: Joi.string().valid('development', 'production').required(),
-        POSTGRES_HOST: Joi.string().required(),
-        POSTGRES_PORT: Joi.string().required(),
-        POSTGRES_DB: Joi.string().required(),
-        POSTGRES_USER: Joi.string().required(),
-        POSTGRES_PASSWORD: Joi.string().required(),
         JWT_SECRET: Joi.string().required(),
         JWT_EXPIRES_IN: Joi.string().required(),
       }),

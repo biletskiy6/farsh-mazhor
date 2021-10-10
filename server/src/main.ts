@@ -8,9 +8,12 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { join } from 'path';
 import * as express from 'express';
 import { AppModule } from './app.module';
+import { ConfigService } from '@nestjs/config';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  const configService = app.get<ConfigService>(ConfigService);
+  const APP_PORT = configService.get('APP_PORT') || 3000;
   app.setGlobalPrefix('/api/v1');
   app.use(express.static(join(process.cwd(), 'public')));
 
@@ -34,8 +37,8 @@ async function bootstrap() {
       forbidUnknownValues: false,
     }),
   );
-  await app.listen(process.env.APP_PORT, () =>
-    console.log(`application started on port ${process.env.APP_PORT}`),
+  await app.listen(APP_PORT, () =>
+    console.log(`application started on port ${APP_PORT}`),
   );
 }
 bootstrap();
