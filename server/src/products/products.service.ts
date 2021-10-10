@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Repository } from 'typeorm';
+import { Like, Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateProductDto } from './dtos/create.product.dto';
 import { Product } from './entities/product.entity';
@@ -31,12 +31,26 @@ export class ProductService {
     });
     return paginateResponse(data, page, limit);
   }
-  async fetchAll({ limit, page = 1, type }) {
-    return type === 'popular'
-      ? this.fetchPopularProducts(limit, page)
-      : this.fetchAllProducts(limit, page);
+  async fetchQueryProducts(limit, page, query) {
+    const data = await this.productRepository
+      .createQueryBuilder('product')
+      .where('LOWER(product.name) like LOWER(:name)', {
+        name: `%${query.toLowerCase()}%`,
+      })
+      .getMany();
+    return {
+      data,
+    };
   }
-
+  async fetchAll({ limit, page = 1, type, query }) {
+    if (query) {
+      return this.fetchQueryProducts(limit, page, query);
+    }
+    if (type && type === 'popular') {
+      return this.fetchPopularProducts(limit, page);
+    }
+    return this.fetchAllProducts(limit, page);
+  }
   async fetchOne(id) {
     return await this.productRepository.findOne(id, {
       relations: ['category'],
@@ -61,18 +75,21 @@ export class ProductService {
     if (productToDelete) {
       await this.productRepository.delete(id);
       const productToDeleteImage = productToDelete.cover_image;
-      const pathToDelete = join(
-        process.cwd(),
-        'public',
-        'products',
-        productToDeleteImage,
-      );
-      if (fs.existsSync(pathToDelete)) {
-        try {
-          fs.unlinkSync(pathToDelete);
-          //file removed
-        } catch (err) {
-          console.error(err);
+
+      if (productToDeleteImage) {
+        const pathToDelete = join(
+          process.cwd(),
+          'public',
+          'products',
+          productToDeleteImage,
+        );
+        if (fs.existsSync(pathToDelete)) {
+          try {
+            fs.unlinkSync(pathToDelete);
+            //file removed
+          } catch (err) {
+            console.error(err);
+          }
         }
       }
     }

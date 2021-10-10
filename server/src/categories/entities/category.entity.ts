@@ -1,7 +1,7 @@
 import { Product } from '../../products/entities/product.entity';
 import { CoreEntity } from '../../common/entities/core.entity';
 import { BeforeInsert, Column, Entity, OneToMany } from 'typeorm';
-import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import { IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
 import slugify from 'slugify';
 @Entity()
 export class Category extends CoreEntity {
@@ -27,6 +27,11 @@ export class Category extends CoreEntity {
 
   @OneToMany((type) => Product, (product) => product.category)
   products: Product[];
+
+  @Column({ nullable: true, default: 0 })
+  @IsOptional()
+  @IsNumber()
+  order: number;
 
   // @RelationId((restaurant: Restaurant) => restaurant.category_id)
   // restaurantsIds: number[]

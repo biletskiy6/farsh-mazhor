@@ -5,4 +5,5 @@ export class UpdateCategoryDto extends PickType(Category, [
   'id',
   'name',
   'description',
+  'order',
 ]) {}

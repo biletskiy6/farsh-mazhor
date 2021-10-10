@@ -46,6 +46,12 @@ export class CategoryController {
     return this.categoryService.update(id, updateCategoryDto);
   }
 
+  @Post('change-order')
+  @UseGuards(AuthGuard)
+  changeOrder(@Body() orderedItems) {
+    return this.categoryService.changeOrder(orderedItems);
+  }
+
   @Delete(':id')
   @UseGuards(AuthGuard)
   delete(@Param() id) {

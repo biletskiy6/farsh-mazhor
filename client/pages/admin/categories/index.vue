@@ -10,6 +10,39 @@
         @update:items-per-page="updateItemsPerPage"
         @update:page="updatePage"
       >
+        <template #body>
+          <client-only>
+            <draggable v-model="dndItems" tag="tbody" @change="onDragChange">
+              <tr v-for="(category, index) in dndItems" :key="index">
+                <td>
+                  <v-icon small class="page__grab-icon"> mdi-arrow-all </v-icon>
+                </td>
+                <td>{{ index + 1 }}</td>
+                <td>{{ category.name }}</td>
+                <td>
+                  <v-icon
+                    small
+                    class="mr-2"
+                    @click="
+                      $router.push({
+                        name: 'admin-categories-id-edit',
+                        params: { id: category.id },
+                      })
+                    "
+                  >
+                    mdi-pencil
+                  </v-icon>
+                  <v-icon small class="mr-2" @click="deleteItem(category)">
+                    mdi-trash-can
+                  </v-icon>
+                </td>
+                <!--              <td>-->
+                <!--                <v-icon small @click="editUser(user.id)"> mdi-pencil </v-icon>-->
+                <!--              </td>-->
+              </tr>
+            </draggable>
+          </client-only>
+        </template>
         <template #top>
           <v-toolbar flat>
             <v-toolbar-title>Категории</v-toolbar-title>
@@ -26,7 +59,7 @@
             <v-dialog v-model="dialogDelete" max-width="500px">
               <v-card>
                 <v-card-title class="text-h5"
-                  >Are you sure you want to delete this item?</v-card-title
+                  >Вы уверены, что хотите удалить категорию?</v-card-title
                 >
                 <v-card-actions>
                   <v-spacer></v-spacer>
@@ -38,7 +71,7 @@
                     color="blue darken-1"
                     text
                     @click="deleteItemConfirm"
-                    >OK</v-btn
+                    >Да</v-btn
                   >
                   <v-spacer></v-spacer>
                 </v-card-actions>
@@ -46,38 +79,20 @@
             </v-dialog>
           </v-toolbar>
         </template>
-
-        <template #[`item.actions`]="{ item }">
-          <v-icon
-            small
-            class="mr-2"
-            @click="
-              $router.push({
-                name: 'admin-categories-id-edit',
-                params: { id: item.id },
-              })
-            "
-          >
-            mdi-pencil
-          </v-icon>
-          <v-icon small class="mr-2" @click="deleteItem(item)">
-            mdi-trash-can
-          </v-icon>
-        </template>
       </v-data-table>
     </template>
   </with-pagination>
 </template>
 
 <script>
-import { required } from 'vuelidate/lib/validators'
-import { mapMutations, mapActions, mapGetters } from 'vuex'
-import trimString from '@/utils/trim-string'
-import WithPagination from '@/components/admin/with-pagination'
+import { required } from "vuelidate/lib/validators"
+import { mapMutations, mapActions, mapGetters } from "vuex"
+import trimString from "@/utils/trim-string"
+import WithPagination from "@/components/admin/with-pagination"
 export default {
-  name: 'AdminEvents',
+  name: "AdminEvents",
   components: { WithPagination },
-  layout: 'admin',
+  layout: "admin",
   data() {
     return {
       dialog: null,
@@ -92,10 +107,18 @@ export default {
       },
       headers: [
         {
-          text: 'Название категории',
-          value: 'name',
+          text: "",
+          value: null,
         },
-        { text: 'Действия', value: 'actions', sortable: false },
+        {
+          text: "#",
+          value: "id",
+        },
+        {
+          text: "Название категории",
+          value: "name",
+        },
+        { text: "Действия", value: "actions", sortable: false },
       ],
       data: [],
     }
@@ -107,11 +130,19 @@ export default {
   },
   computed: {
     ...mapGetters({
-      loading: 'loading/loading',
-      items: 'categories/data',
+      loading: "loading/loading",
+      items: "categories/data",
     }),
+    dndItems: {
+      get() {
+        return this.items
+      },
+      set(items) {
+        this.updateDndItems(items)
+      },
+    },
     formTitle() {
-      return this.editedIndex > -1 ? 'Edit Item' : 'Add Item'
+      return this.editedIndex > -1 ? "Edit Item" : "Add Item"
     },
   },
 
@@ -125,12 +156,16 @@ export default {
   },
   methods: {
     ...mapMutations({
-      deleteItemInLocalState: 'categories/spliceItem',
+      deleteItemInLocalState: "categories/spliceItem",
+      swapItems: "categories/swapItems",
+      updateDndItems: "categories/updateDndItems",
     }),
     ...mapActions({
-      fetchAll: 'categories/fetchAll',
-      dropItem: 'categories/delete',
-      showSnackbar: 'snackbar/showSnack',
+      fetchAll: "categories/fetchAll",
+      dropItem: "categories/delete",
+      updateCategory: "categories/update",
+      showSnackbar: "snackbar/showSnack",
+      changeOrder: "categories/changeOrder",
     }),
 
     showContent(item) {
@@ -148,7 +183,7 @@ export default {
         const id = this?.editedItem?.id
         await this.dropItem({ id })
         await this.deleteItemInLocalState(id)
-        this.showSnackbar({ text: 'Successfully Deleted', color: 'success' })
+        this.showSnackbar({ text: "Успешно удалено", color: "success" })
       } catch (e) {}
       // this.data.splice(this.editedIndex, 1)
       // this.deleteItemInLocalState(this.editedItem)
@@ -169,6 +204,23 @@ export default {
         this.editedItem = Object.assign({}, this.defaultItem)
         this.editedIndex = -1
       })
+    },
+    async onDragChange({ moved }) {
+      try {
+        // const from = moved.element
+        // const newIndex = moved.newIndex
+        // const oldIndex = moved.oldIndex
+        // const to = this.dndItems[oldIndex]
+        // console.log(this.dndItems)
+        // console.log("FROM:", from)
+        // console.log("TO:", to)
+        // console.log("OLDINDEX:", oldIndex)
+        // console.log("NEW INDEX:", newIndex)
+        // console.log(from, to, oldIndex, newIndex)
+        await this.changeOrder({ dndItems: this.dndItems })
+        this.showSnackbar({ text: "Успешно обновлено", color: "success" })
+        // this.swapItems({ newIndex, oldIndex })
+      } catch (e) {}
     },
   },
 }

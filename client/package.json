@@ -25,6 +25,7 @@
     "sass": "^1.42.1",
     "sass-loader": "^10",
     "vue-quill-editor": "^3.0.6",
+    "vuedraggable": "^2.24.3",
     "vuelidate": "^0.7.6",
     "vuetify": "^2.5.5"
   },

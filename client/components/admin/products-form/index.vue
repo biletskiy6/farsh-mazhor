@@ -9,6 +9,15 @@
     @create="handleCreate"
   >
     <form @submit.prevent="handleSubmit">
+      <template
+        v-if="defaultValues && typeof defaultValues['cover_image'] === 'string'"
+      >
+        <v-img
+          class="mb-10"
+          max-height="350px"
+          :src="productImage({ cover_image: defaultValues['cover_image'] })"
+        ></v-img>
+      </template>
       <v-text-field
         v-model="formFields['name']"
         label="Название Товара"
@@ -107,6 +116,7 @@ export default {
     ...mapGetters({
       loading: "loading/loading",
       categories: "categories/data",
+      productImage: "products/image",
     }),
   },
   async mounted() {

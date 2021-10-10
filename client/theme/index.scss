@@ -7,6 +7,11 @@
 @import "home/main-header";
 // Discover The Best
 
+.distort {
+  //transition: transoform .25s ease;
+  //will-change: transform;
+}
+
 .app-container {
   border-radius: 32px;
   //display: flex;
@@ -141,12 +146,13 @@
 
 .product-image {
   width: 100%;
-  height: auto;
   object-fit: cover;
   transition: 0.2s linear;
   max-height: 240px;
+  height: 240px;
   img {
     object-fit: cover;
+    width: 100%;
   }
 }
 
@@ -458,9 +464,9 @@
     border-radius: 16px;
     padding: 4px 8px;
     max-width: 80%;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    //white-space: nowrap;
+    //overflow: hidden;
+    //text-overflow: ellipsis;
 
     span {
       color: #556b8e;

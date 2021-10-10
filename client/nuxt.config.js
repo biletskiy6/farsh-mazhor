@@ -4,8 +4,7 @@ require("dotenv").config()
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    titleTemplate: "%s - client",
-    title: "client",
+    title: "Фарш Мажор Миколаїв",
     meta: [
       { charset: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
@@ -24,6 +23,7 @@ export default {
     { src: "@/plugins/vuelidate", ssr: true },
     { src: "@/plugins/modal", ssr: false },
     { src: "@/plugins/quill-editor", ssr: false },
+    { src: "@/plugins/vue-draggable", ssr: false },
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components

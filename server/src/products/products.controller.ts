@@ -24,8 +24,8 @@ export class ProductController {
   constructor(private readonly productService: ProductService) {}
 
   @Get()
-  async fetchAll(@Query() { limit, page, type }) {
-    return await this.productService.fetchAll({ limit, page, type });
+  async fetchAll(@Query() { limit, page, type, query }) {
+    return await this.productService.fetchAll({ limit, page, type, query });
   }
 
   @Get(':id')

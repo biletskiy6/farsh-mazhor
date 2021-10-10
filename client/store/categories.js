@@ -1,3 +1,4 @@
+import axios from "../services/request.service"
 import crudStore from "./generic"
 const crudInstance = crudStore({
   url: "categories",
@@ -5,6 +6,32 @@ const crudInstance = crudStore({
 })
 export default {
   ...crudInstance,
+  mutations: {
+    ...crudInstance.mutations,
+    swapItems(state, { newIndex, oldIndex }) {
+      const stateItems = state.items.data
+      const temp = stateItems[oldIndex]
+      stateItems[oldIndex] = stateItems[newIndex]
+      stateItems[newIndex] = temp
+    },
+    updateDndItems(state, newItems) {
+      state.items.data = newItems
+    },
+  },
+  actions: {
+    ...crudInstance.actions,
+    async changeOrder({ commit, dispatch }, payload) {
+      commit("loading/setLoading", null, { root: true })
+      try {
+        const { data } = await axios.post("/categories/change-order", payload)
+        commit("loading/resetLoading", null, { root: true })
+        return data
+      } catch (e) {
+        commit("loading/resetLoading", null, { root: true })
+        throw e
+      }
+    },
+  },
   getters: {
     ...crudInstance.getters,
     image: () => (item) => {

@@ -9,34 +9,25 @@
             class="search-query"
             placeholder="Знайти що?"
             :value="value"
+            :class="{ focusable }"
+            @focusin="focusable = true"
             @input="$emit('input', $event.target.value)"
           />
-          <button type="button">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              height="24px"
-              viewBox="0 0 24 24"
-              width="24px"
-              fill="#000000"
-            >
-              <path d="M0 0h24v24H0V0z" fill="none" />
-              <path
-                d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"
-              />
-            </svg>
+          <button
+            class="custom-search__close"
+            @click="handleResetSearch"
+          >
+            <font-awesome-icon :icon="['fas', 'times']" />
           </button>
-          <input type="submit" value="Submit" style="display: none" />
         </div>
       </li>
       <li v-for="category in categories" :key="category.id">
         <a
+          v-if="category.products && category.products.length"
           :href="`#${category.slug}`"
           @click.prevent="handleCategoryClick(category.slug)"
         >
-          <img
-            :src="categoryImage(category)"
-            alt=""
-          />
+          <img :src="categoryImage(category)" alt="" />
           <h6>{{ category.name }}</h6>
         </a>
       </li>
@@ -70,6 +61,7 @@ export default {
   data() {
     return {
       visible: false,
+      focusable: false,
     }
   },
   computed: {
@@ -95,6 +87,10 @@ export default {
     )
   },
   methods: {
+    handleResetSearch() {
+      this.focusable = false
+      this.$emit("resetSearch")
+    },
     handleScroll(e) {
       const $appHeader = document.querySelector(".main-header")
       const appHeaderHeight = $appHeader.clientHeight
@@ -108,7 +104,7 @@ export default {
         duration: 1,
         scrollTo: {
           y: `#${categoryName}`,
-          offsetY: 75,
+          offsetY: 100,
         },
       })
     },
@@ -122,8 +118,8 @@ export default {
         const sectionId = current.getAttribute("id")
         const linkToHighlight = document.querySelector(`a[href*=${sectionId}`)
         const isSectionInViewport =
-          scrollY > sectionTop - 84 &&
-          scrollY <= sectionTop + sectionHeight - 84
+          scrollY > sectionTop - 150 &&
+          scrollY <= sectionTop + sectionHeight - 150
         if (!linkToHighlight) return
         isSectionInViewport
           ? linkToHighlight.classList.add("active")

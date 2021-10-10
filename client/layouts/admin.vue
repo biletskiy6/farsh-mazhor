@@ -54,6 +54,7 @@ import ErrorMixin from "@/mixins/error"
 export default {
   components: { AppSnackbar },
   mixins: [ErrorMixin],
+  middleware: "auth",
   data() {
     return {
       menuAdminList,

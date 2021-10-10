@@ -1,6 +1,6 @@
 <script>
 export default {
-  name: 'WithPagination',
+  name: "WithPagination",
   props: {
     fetchData: {
       type: Function,
@@ -28,14 +28,12 @@ export default {
     },
     async updateItemsPerPage(limit) {
       await this.fetchData({
-        isAdmin: true,
         params: { limit, page: this.page },
       })
       return true
     },
     async updatePage(page) {
       await this.fetchData({
-        isAdmin: true,
         params: { limit: this.limit, page },
       })
       this.page = page

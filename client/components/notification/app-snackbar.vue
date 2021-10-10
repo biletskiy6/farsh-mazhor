@@ -3,7 +3,7 @@
     <v-snackbar v-model="show" :color="color" :timeout="timeout" :top="'top'">
       {{ text }}
       <template #action="{ attrs }">
-        <v-btn dark text v-bind="attrs" @click="show = false"> Close </v-btn>
+        <v-btn dark text v-bind="attrs" @click="show = false"> Закрыть </v-btn>
       </template>
     </v-snackbar>
   </div>

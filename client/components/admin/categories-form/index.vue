@@ -9,15 +9,24 @@
     @create="handleCreate"
   >
     <form @submit.prevent="handleSubmit">
+      <template
+        v-if="defaultValues && typeof defaultValues['cover_image'] === 'string'"
+      >
+        <v-img
+          class="mb-10"
+          max-height="350px"
+          :src="categoryImage({ cover_image: defaultValues['cover_image'] })"
+        ></v-img>
+      </template>
       <v-text-field
         v-model="formFields['name']"
         label="Название категории"
       ></v-text-field>
-      <v-textarea
-        v-model="formFields['description']"
-        name="input-7-1"
-        label="Описание"
-      ></v-textarea>
+      <!--      <v-textarea-->
+      <!--        v-model="formFields['description']"-->
+      <!--        name="input-7-1"-->
+      <!--        label="Описание"-->
+      <!--      ></v-textarea>-->
       <v-file-input
         v-model="formFields['cover_image']"
         placeholder="Картинка"
@@ -29,7 +38,7 @@
         :disabled="loading"
         class="mt-1"
         color="primary"
-        >Save</v-btn
+        >Сохранить</v-btn
       >
     </form>
   </base-form>
@@ -80,10 +89,8 @@ export default {
   },
   computed: {
     ...mapGetters({
-      entityLoading: "events/loading",
       loading: "loading/loading",
-      locations: "locations/data",
-      performers: "performers/data",
+      categoryImage: "categories/image",
     }),
   },
   methods: {

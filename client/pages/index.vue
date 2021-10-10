@@ -3,6 +3,7 @@
     <sticky-navigation
       v-model="searchQuery"
       :categories="categories"
+      @resetSearch="handleResetSearch"
     ></sticky-navigation>
     <call-now></call-now>
     <app-modal name="product-content">
@@ -180,12 +181,33 @@ export default {
   async mounted() {
     try {
       await this.fetchCategories()
+      // this.distortContent()
+      // window.addEventListener("scroll", this.distortContent)
     } catch (e) {}
+  },
+  beforeDestroy() {
+    // window.removeEventListener("scroll", this.distortContent)
   },
   methods: {
     ...mapActions({
       fetchCategories: "categories/fetchAll",
     }),
+    handleResetSearch() {
+      this.searchQuery = ""
+    },
+    distortContent() {
+      const distortContent = document.querySelector(".distort")
+      let currentPos = window.pageYOffset
+      const callDistort = function () {
+        const newPos = window.pageYOffset
+        const diff = newPos - currentPos
+        const speed = diff * 0.05
+        distortContent.style.transform = `skewY(${speed}deg)`
+        currentPos = newPos
+        requestAnimationFrame(callDistort)
+      }
+      callDistort()
+    },
   },
 }
 </script>
