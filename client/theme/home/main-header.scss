@@ -3,10 +3,9 @@ body {
   margin: 0;
   padding: 0;
   width: 100%;
-  &.home-page {
-    font-family: "Montserrat";
-    font-weight: 500;
-  }
+  font-family: "Montserrat";
+  font-weight: 500;
+  -webkit-font-smoothing: auto;
 }
 .logo {
   //position: absolute;

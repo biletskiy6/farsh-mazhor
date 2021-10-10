@@ -28,7 +28,7 @@ export default {
   name: "AppPopular",
   async mounted() {
     try {
-      await this.fetchProducts({ params: { type: "popular" } })
+      await this.fetchProducts({ params: { type: "popular", limit: 6 } })
     } catch (e) {}
   },
   computed: {

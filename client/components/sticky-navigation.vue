@@ -13,10 +13,7 @@
             @focusin="focusable = true"
             @input="$emit('input', $event.target.value)"
           />
-          <button
-            class="custom-search__close"
-            @click="handleResetSearch"
-          >
+          <button class="custom-search__close" @click="handleResetSearch">
             <font-awesome-icon :icon="['fas', 'times']" />
           </button>
         </div>

@@ -52,7 +52,7 @@ export default {
   googleFonts: {
     families: {
       Charm: [700],
-      Montserrat: [400, 500],
+      Montserrat: [400, 500, 600],
     },
   },
 
@@ -115,6 +115,11 @@ export default {
           error: colors.deepOrange.accent4,
           success: colors.green.accent3,
         },
+      },
+    },
+    defaultAssets: {
+      font: {
+        // family: "Montserrat",
       },
     },
   },
