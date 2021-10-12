@@ -10,8 +10,8 @@
 // Discover The Best
 
 .distort {
-  //transition: transoform .25s ease;
-  //will-change: transform;
+  transition: transform 0.25s ease;
+  will-change: transform;
 }
 
 a {
