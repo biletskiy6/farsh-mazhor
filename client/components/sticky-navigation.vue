@@ -1,8 +1,8 @@
 <template>
   <client-only>
     <scrollactive
-      :offset="100"
       ref="sticky-navigation"
+      :offset="100"
       class="sticky-navigation"
       active-class="active"
       :class="{ active: visible }"
@@ -30,7 +30,6 @@
           <a
             class="scrollactive-item"
             :href="`#${category.slug}`"
-            @click.prevent="handleCategoryClick(category.slug)"
           >
             <img :src="categoryImage(category)" alt="" />
             <h6>{{ category.name }}</h6>
@@ -104,13 +103,13 @@ export default {
         : (this.visible = false)
     },
     handleCategoryClick(categoryName) {
-      gsap.to(window, {
-        duration: 1,
-        scrollTo: {
-          y: `#${categoryName}`,
-          offsetY: 100,
-        },
-      })
+      // gsap.to(window, {
+      //   duration: 1,
+      //   scrollTo: {
+      //     y: `#${categoryName}`,
+      //     offsetY: 100,
+      //   },
+      // })
     },
     isInViewport(element) {
       const rect = element.getBoundingClientRect()

@@ -25,6 +25,17 @@
           </div>
         </li>
         <li class="schedule">
+          <font-awesome-icon :icon="['fas', 'envelope']" />
+          <div class="schedule-container">
+            <a
+              class="link link--secondary"
+              href="mailto:farshmazhor@gmail.com"
+              target="_blank"
+              >farshmazhor@gmail.com</a
+            >
+          </div>
+        </li>
+        <li class="schedule">
           <font-awesome-icon :icon="['fas', 'clock']" />
           <div class="schedule-container">
             <p>Пн - Пт з 08:00 до 19:00</p>
