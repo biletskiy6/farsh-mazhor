@@ -1,7 +1,7 @@
 <template>
-  <div class="app-section">
-    <h2 v-if="resultsEmpty" class="content-title">
-      Товар не знайдено, спробуйте, будь-ласка, ще раз
+  <div class="app-container">
+    <h2 v-if="!loading && resultsEmpty" class="content-title">
+      Товарів не знайдено, спробуйте, будь-ласка, ще раз
     </h2>
     <div v-else-if="filteredCategories" class="app-products distort">
       <section
@@ -26,15 +26,18 @@
                 <div class="product-image">
                   <img :src="productImage(product)" alt="Product" />
                 </div>
-                <div class="product-box-details">{{ product.name }}</div>
+                <div v-if="false" class="product-box-details">
+                  {{ product.name }}
+                </div>
               </div>
+              <h3 class="product-title">{{ product.name }}</h3>
               <div class="product-description">
                 <p>
                   {{ product.excerpt }}
                 </p>
               </div>
               <div class="product-price">
-                {{ product.price }} ₴ / <small>1 kg</small>
+                {{ product.price }} ₴ (<small>1 кг</small>)
               </div>
             </div>
           </div>
@@ -68,6 +71,7 @@ export default {
   computed: {
     ...mapGetters({
       productImage: "products/image",
+      loading: "loading/loading",
     }),
     resultsEmpty() {
       return (

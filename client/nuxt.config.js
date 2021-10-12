@@ -14,6 +14,10 @@ export default {
     link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
   },
 
+  server: {
+    host: "0.0.0.0",
+  },
+
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [{ src: "@/theme/index.scss" }],
 
@@ -24,6 +28,7 @@ export default {
     { src: "@/plugins/modal", ssr: false },
     { src: "@/plugins/quill-editor", ssr: false },
     { src: "@/plugins/vue-draggable", ssr: false },
+    { src: "@/plugins/vue-scrollactive", ssr: false },
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -52,7 +57,7 @@ export default {
   googleFonts: {
     families: {
       Charm: [700],
-      Montserrat: [400, 500],
+      Montserrat: [400, 500, 600],
     },
   },
 
@@ -115,6 +120,11 @@ export default {
           error: colors.deepOrange.accent4,
           success: colors.green.accent3,
         },
+      },
+    },
+    defaultAssets: {
+      font: {
+        // family: "Montserrat",
       },
     },
   },

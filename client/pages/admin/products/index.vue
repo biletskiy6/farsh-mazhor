@@ -72,7 +72,7 @@
           </template>
 
           <template #[`item.category`]="{ item }">
-            {{ item.category.name }}
+            {{ item.category && item.category.name }}
           </template>
 
           <template #[`item.actions`]="{ item }">

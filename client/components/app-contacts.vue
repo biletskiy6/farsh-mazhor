@@ -5,14 +5,23 @@
       <ul>
         <li>
           <font-awesome-icon :icon="['fas', 'map-marked']" />
-          <p>вул. 295-ї Стрілецької Дивізії, 4а</p>
+          <a
+            class="link link--secondary"
+            target="_blank"
+            href="https://goo.gl/maps/rtxrBkXuMVqKqNKS8"
+            >вул. 295-ї Стрілецької Дивізії, 4а</a
+          >
         </li>
         <li class="schedule">
           <font-awesome-icon :icon="['fas', 'phone']" />
           <div class="schedule-container">
-            <a href="tel:0983557306">098-355-73-06</a>
+            <a class="link link--secondary" href="tel:0983557306"
+              >098-355-73-06</a
+            >
             <br />
-            <a href="tel:0509575458">050-957-54-58</a>
+            <a class="link link--secondary" href="tel:0509575458"
+              >050-957-54-58</a
+            >
           </div>
         </li>
         <li class="schedule">
