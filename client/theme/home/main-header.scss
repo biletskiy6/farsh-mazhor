@@ -6,6 +6,7 @@ body {
   font-family: "Montserrat";
   font-weight: 500;
   -webkit-font-smoothing: auto;
+  @include scrollbars($scrollbarWidth + 2, $dark, #d3d3d3);
 }
 .logo {
   //position: absolute;
@@ -46,15 +47,6 @@ body {
   height: 100vh;
   overflow: hidden;
 
-  .scroll-down {
-    position: absolute;
-    width: 16px;
-    // height: px;
-    bottom: 30px;
-    left: 50%;
-    transform: translateX(-50%);
-  }
-
   .top-bar {
     display: flex;
     justify-content: space-between;
@@ -62,6 +54,8 @@ body {
   }
 
   .phone {
+    display: flex;
+    align-items: center;
     // position: absolute;
     top: 0;
     // right: 30px;
@@ -348,6 +342,106 @@ body {
     100% {
       left: 46%;
       width: 0%;
+    }
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .app-popular {
+    padding-top: 80px;
+  }
+  .main-header {
+    .top-bar {
+      padding: 30px 20px;
+    }
+    .eco {
+      left: -10px;
+    }
+    .contact {
+      right: -10px;
+    }
+    .media ul {
+      right: 20px;
+    }
+    .year {
+      left: 20px;
+    }
+    .s-one {
+      left: 25%;
+    }
+    .s-two {
+      left: 50%;
+    }
+    .s-three {
+      left: 75%;
+    }
+    .s-four {
+      display: none;
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .main-header {
+    .strips {
+      display: none;
+    }
+    .title {
+      width: 100%;
+      right: 0;
+      display: none;
+    }
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .main-header {
+    .tag {
+      left: 0;
+      top: 140px;
+    }
+    &-image {
+      width: 320px;
+      img {
+        width: 320px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .main-header {
+    &-image {
+      width: 280px;
+      img {
+        width: 280px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .main-header {
+    &-image {
+      width: 250px;
+      img {
+        width: 250px;
+      }
+    }
+    .top-bar {
+      padding: 30px 15px;
+    }
+    .eco {
+      left: -15px;
+    }
+    .contact {
+      right: -20px;
+    }
+    .media ul {
+      right: 15px;
+    }
+    .year {
+      left: 15px;
     }
   }
 }

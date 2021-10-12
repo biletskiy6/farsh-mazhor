@@ -1,0 +1,56 @@
+.progress-wrap {
+  position: fixed;
+  right: 30px;
+  bottom: 20px;
+  height: 46px;
+  width: 46px;
+  cursor: pointer;
+  display: block;
+  border-radius: 50px;
+  box-shadow: rgba(149, 157, 165, 0.4) 0px 8px 24px;
+  background-color: #fff;
+  z-index: 99;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(15px);
+  -webkit-transition: all 200ms linear;
+  transition: all 200ms linear;
+  opacity: 0;
+  visibility: hidden;
+
+  &.active-progress {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+  .progress-circle {
+    path {
+      fill: none;
+      stroke: $accent;
+      stroke-width: 6px;
+    }
+  }
+  &:hover {
+    box-shadow: rgba(149, 157, 165, 0.8) 0px 8px 24px;
+    transition: all 200ms linear;
+    .back-to-top__icon {
+      svg {
+        color: $accent;
+        transition: all 0.25s ease;
+      }
+    }
+  }
+}
+
+.back-to-top {
+  &__icon {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: -1;
+    svg {
+      transition: all 0.25s ease;
+    }
+  }
+}

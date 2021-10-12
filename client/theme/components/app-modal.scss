@@ -3,7 +3,7 @@
     position: absolute;
     right: 40px;
     top: 40px;
-    z-index: 1;
+    z-index: 200;
     display: inline-flex;
     background-color: #f2f2f2;
     border-radius: 100%;
@@ -40,10 +40,11 @@
       padding: 32px 24px;
       flex: 1;
       overflow-y: auto;
+      @include scrollbars($scrollbarWidth, $dark, #d3d3d3);
       h2 {
         margin-bottom: 32px;
         font-size: 28px;
-        text-align: center;
+        text-align: left;
       }
     }
     &-image {

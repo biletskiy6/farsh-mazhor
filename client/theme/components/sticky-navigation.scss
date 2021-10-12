@@ -8,7 +8,7 @@
   z-index: 101;
   background-color: #fff;
   transition: all 0.25s ease;
-  @include scrollbars(6px, #333, #d3d3d3);
+  @include scrollbars($scrollbarWidth, $dark, #d3d3d3);
 
   &.active {
     transform: translateY(0);
@@ -22,7 +22,7 @@
   }
 
   li {
-    margin-right: 6px;
+    margin-right: 10px;
 
     &:last-child {
       margin-right: 0;
@@ -47,7 +47,7 @@
       width: 24px;
       height: 24px;
       border-radius: 100%;
-      margin-right: 16px;
+      margin-right: 10px;
     }
 
     &.active {

@@ -85,6 +85,20 @@ export default {
         "get",
         "name_ru",
       ])
+
+      this.map.dragPan.disable()
+      this.map.scrollZoom.disable()
+
+      this.map.on("touchstart", (event) => {
+        const e = event.originalEvent
+        if (e && "touches" in e) {
+          if (e.touches.length > 1) {
+            this.map.dragPan.enable()
+          } else {
+            this.map.dragPan.disable()
+          }
+        }
+      })
     },
     buildResult(data) {
       /* eslint-disable */

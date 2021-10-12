@@ -1,6 +1,8 @@
 @import "variables";
 @import "mixins";
 @import "components/call-now";
+@import "components/scroll-down.scss";
+@import "components/back-to-top.scss";
 @import "components/app-modal";
 @import "components/app-popular";
 @import "components/sticky-navigation";
@@ -12,13 +14,54 @@
   //will-change: transform;
 }
 
+a {
+  &:focus {
+    outline: none;
+  }
+}
+.link {
+  transition: color 0.25s ease;
+  text-decoration: none;
+  color: inherit;
+  &:hover {
+    transition: color 0.25s ease;
+  }
+  &--accent {
+    &:hover {
+      color: $accent;
+    }
+  }
+  &--inverse {
+    &:hover {
+      color: $black;
+    }
+  }
+  &--secondary {
+    &:hover {
+      color: #fff;
+    }
+  }
+}
+
 .app-container {
-  border-radius: 32px;
+  // border-radius: 32px;
   //display: flex;
-  padding: 30px;
+  // padding: 30px;
+  padding-left: 30px;
+  padding-right: 30px;
   overflow: hidden;
+}
+.app-popular {
+  padding-top: 112px;
+  padding-bottom: 112px;
   .content-title {
-    margin-bottom: 24px;
+    margin-bottom: 32px;
+  }
+}
+.app-category {
+  margin-bottom: 112px;
+  &:last-child {
+    margin-bottom: 0;
   }
 }
 .v-container {
@@ -598,11 +641,18 @@
   background-color: $dark;
   color: #a3acce;
   padding: 40px 16px 24px;
+  @media screen and (max-width: 660px) {
+    padding: 20px 16px 16px;
+  }
 
   .footer-logo {
     display: flex;
     justify-content: center;
     align-items: center;
+    @media screen and (max-width: 660px) {
+      justify-content: flex-start;
+      margin-bottom: 24px;
+    }
   }
   .footer-copyrights {
     display: flex;
@@ -628,6 +678,31 @@
         justify-content: flex-end;
         font-size: 13px;
       }
+      @media screen and (max-width: 992px) {
+        width: calc(50% - 32px);
+        &.socials {
+          justify-content: flex-end;
+        }
+        &.rights {
+          justify-content: center;
+        }
+      }
+      @media screen and (max-width: 660px) {
+        width: calc(100% - 32px);
+        margin-bottom: 16px;
+        &:last-child {
+          margin-bottom: 0;
+        }
+        &.socials {
+          justify-content: flex-start;
+        }
+        &.rights {
+          justify-content: flex-start;
+        }
+      }
+    }
+    @media screen and (max-width: 992px) {
+      justify-content: center;
     }
   }
   .footer-socials {
@@ -868,6 +943,7 @@
   border: 1px solid rgba($dark, 0.05);
   border-radius: 12px;
   // border-bottom-right-radius: 12px;
+  cursor: pointer;
   padding-bottom: 15px;
   transition: transform 0.25s ease;
 

@@ -1,5 +1,5 @@
 <template>
-  <div class="app-section">
+  <div class="app-container">
     <h2 v-if="!loading && resultsEmpty" class="content-title">
       Товарів не знайдено, спробуйте, будь-ласка, ще раз
     </h2>

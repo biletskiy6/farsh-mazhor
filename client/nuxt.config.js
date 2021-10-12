@@ -14,6 +14,10 @@ export default {
     link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
   },
 
+  server: {
+    host: "0.0.0.0",
+  },
+
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [{ src: "@/theme/index.scss" }],
 
@@ -24,6 +28,7 @@ export default {
     { src: "@/plugins/modal", ssr: false },
     { src: "@/plugins/quill-editor", ssr: false },
     { src: "@/plugins/vue-draggable", ssr: false },
+    { src: "@/plugins/vue-scrollactive", ssr: false },
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components

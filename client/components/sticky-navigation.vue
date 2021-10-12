@@ -1,35 +1,44 @@
 <template>
-  <nav class="sticky-navigation" :class="{ active: visible }">
-    <ul>
-      <li>
-        <div id="custom-search">
-          <input
-            type="text"
-            name="search"
-            class="search-query"
-            placeholder="Знайти що?"
-            :value="value"
-            :class="{ focusable }"
-            @focusin="focusable = true"
-            @input="$emit('input', $event.target.value)"
-          />
-          <button class="custom-search__close" @click="handleResetSearch">
-            <font-awesome-icon :icon="['fas', 'times']" />
-          </button>
-        </div>
-      </li>
-      <li v-for="category in categories" :key="category.id">
-        <a
-          v-if="category.products && category.products.length"
-          :href="`#${category.slug}`"
-          @click.prevent="handleCategoryClick(category.slug)"
-        >
-          <img :src="categoryImage(category)" alt="" />
-          <h6>{{ category.name }}</h6>
-        </a>
-      </li>
-    </ul>
-  </nav>
+  <client-only>
+    <scrollactive
+      :offset="100"
+      ref="sticky-navigation"
+      class="sticky-navigation"
+      active-class="active"
+      :class="{ active: visible }"
+      @itemchanged="onScrollItemChanged"
+    >
+      <ul>
+        <li>
+          <div id="custom-search">
+            <input
+              type="text"
+              name="search"
+              class="search-query"
+              placeholder="Знайти що?"
+              :value="value"
+              :class="{ focusable }"
+              @focusin="focusable = true"
+              @input="$emit('input', $event.target.value)"
+            />
+            <button class="custom-search__close" @click="handleResetSearch">
+              <font-awesome-icon :icon="['fas', 'times']" />
+            </button>
+          </div>
+        </li>
+        <li v-for="category in categoriesWithProducts" :key="category.id">
+          <a
+            class="scrollactive-item"
+            :href="`#${category.slug}`"
+            @click.prevent="handleCategoryClick(category.slug)"
+          >
+            <img :src="categoryImage(category)" alt="" />
+            <h6>{{ category.name }}</h6>
+          </a>
+        </li>
+      </ul>
+    </scrollactive>
+  </client-only>
 </template>
 
 <script>
@@ -59,29 +68,28 @@ export default {
     return {
       visible: false,
       focusable: false,
+      lastScrollTop: 0,
     }
   },
   computed: {
     ...mapGetters({
       categoryImage: "categories/image",
     }),
+    categoriesWithProducts() {
+      const categories = []
+      this.categories.forEach((category) => {
+        if (category.products && category.products.length) {
+          categories.push(category)
+        }
+      })
+      return categories
+    },
   },
   mounted() {
-    try {
-      this.links = document.querySelectorAll(".sticky-navigation a")
-      this.sections = document.querySelectorAll("section[id]")
-      window.addEventListener("scroll", this.handleScroll)
-    } catch (e) {
-      console.error(e)
-    }
+    window.addEventListener("scroll", this.handleScroll)
   },
-
   beforeDestroy() {
     window.removeEventListener("scroll", this.handleScroll)
-    window.removeEventListener(
-      "scroll",
-      this.changeLinkState.bind(event, this.links, this.sections)
-    )
   },
   methods: {
     handleResetSearch() {
@@ -94,7 +102,6 @@ export default {
       window.scrollY > appHeaderHeight
         ? (this.visible = true)
         : (this.visible = false)
-      this.changeLinkState()
     },
     handleCategoryClick(categoryName) {
       gsap.to(window, {
@@ -105,23 +112,26 @@ export default {
         },
       })
     },
-    changeLinkState() {
-      const scrollY = window.pageYOffset
-      const sections = document.querySelectorAll("section[id]")
-      sections.forEach((current) => {
-        /* eslint-disable */
-        const sectionHeight = current.offsetHeight
-        const sectionTop = current.offsetTop
-        const sectionId = current.getAttribute("id")
-        const linkToHighlight = document.querySelector(`a[href*=${sectionId}`)
-        const isSectionInViewport =
-          scrollY > sectionTop - 150 &&
-          scrollY <= sectionTop + sectionHeight - 150
-        if (!linkToHighlight) return
-        isSectionInViewport
-          ? linkToHighlight.classList.add("active")
-          : linkToHighlight.classList.remove("active")
-      })
+    isInViewport(element) {
+      const rect = element.getBoundingClientRect()
+      return (
+        rect.top >= 0 &&
+        rect.left >= 0 &&
+        rect.bottom <=
+          (window.innerHeight || document.documentElement.clientHeight) &&
+        rect.right <=
+          (window.innerWidth || document.documentElement.clientWidth)
+      )
+    },
+    onScrollItemChanged(event, currentItem, lastActiveItem) {
+      const st = window.pageYOffset || document.documentElement.scrollTop
+      const coefficient = st > this.lastScrollTop ? 1 : -2
+      if (currentItem && !this.isInViewport(currentItem)) {
+        document
+          .querySelector(".sticky-navigation")
+          .scrollBy(currentItem.offsetLeft * coefficient, 0)
+      }
+      this.lastScrollTop = st <= 0 ? 0 : st
     },
   },
 }
