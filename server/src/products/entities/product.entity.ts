@@ -14,7 +14,7 @@ export class Product extends CoreEntity {
   @IsString()
   excerpt: string;
 
-  @Column()
+  @Column({ nullable: true })
   @IsString()
   @IsOptional()
   description: string;
