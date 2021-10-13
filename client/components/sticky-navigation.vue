@@ -2,7 +2,7 @@
   <client-only>
     <scrollactive
       ref="sticky-navigation"
-      :offset="100"
+      :offset="120"
       class="sticky-navigation"
       active-class="active"
       :class="{ active: visible }"
@@ -27,10 +27,7 @@
           </div>
         </li>
         <li v-for="category in categoriesWithProducts" :key="category.id">
-          <a
-            class="scrollactive-item"
-            :href="`#${category.slug}`"
-          >
+          <a class="scrollactive-item" :href="`#${category.slug}`">
             <img :src="categoryImage(category)" alt="" />
             <h6>{{ category.name }}</h6>
           </a>

@@ -7,6 +7,9 @@
         :items="items"
         :page="page"
         :items-per-page="limit"
+        :footer-props="{
+          itemsPerPageOptions: [15, 25],
+        }"
         @update:items-per-page="updateItemsPerPage"
         @update:page="updatePage"
       >

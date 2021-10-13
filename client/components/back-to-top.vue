@@ -1,5 +1,5 @@
 <template>
-  <div @click="toTop" class="back-to-top progress-wrap active-progress">
+  <div @click="toTop" class="back-to-top progress-wrap">
     <div class="back-to-top__icon">
       <font-awesome-icon icon="angle-up" />
     </div>

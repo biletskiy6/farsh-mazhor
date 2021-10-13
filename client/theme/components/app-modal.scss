@@ -176,9 +176,31 @@
 @media screen and (max-width: 576px) {
   .app-modal {
     .modal {
+      &::after {
+        position: fixed;
+        content: "";
+        width: 100%;
+        height: 72px;
+        bottom: 0;
+        z-index: 200;
+        background: transparent
+          linear-gradient(
+            0deg,
+            #e6e6eb,
+            rgba(230, 230, 235, 0.721569) 35%,
+            rgba(230, 230, 235, 0.239216) 68%,
+            rgba(230, 230, 235, 0)
+          )
+          0 0 no-repeat padding-box;
+      }
       &-content {
+        width: 100vw;
+        top: auto;
+        bottom: 0;
+        transform: translate(-50%, 0);
       }
       &-description {
+        position: relative;
       }
       &-image {
         max-height: 260px;
@@ -196,7 +218,6 @@
   .app-modal {
     .modal {
       &-content {
-        width: 100vw;
       }
       &-description {
       }
