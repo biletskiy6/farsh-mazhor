@@ -1033,6 +1033,24 @@ a {
   }
 }
 
+@media screen and (max-width: 600px) {
+  .app-popular {
+    padding-top: 64px;
+    padding-bottom: 64px;
+  }
+  .app-category {
+    margin-bottom: 64px;
+  }
+  .progress-wrap {
+    right: 16px;
+    bottom: 16px;
+  }
+  .phone-call {
+    left: 16px;
+    bottom: 16px;
+  }
+}
+
 @media screen and (max-width: 576px) {
   .app-category-product {
     width: calc(100% - 32px);

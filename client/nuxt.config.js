@@ -14,10 +14,6 @@ export default {
     link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
   },
 
-  server: {
-    host: "0.0.0.0",
-  },
-
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [{ src: "@/theme/index.scss" }],
 
@@ -42,7 +38,6 @@ export default {
     "@nuxtjs/vuetify",
     "@nuxtjs/google-fonts",
     "@nuxtjs/fontawesome",
-    "@nuxtjs/dotenv",
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -103,6 +98,10 @@ export default {
   },
   proxy: {
     "/api/": process.env.BASE_URL,
+  },
+
+  env: {
+    ...process.env,
   },
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
