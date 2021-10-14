@@ -4,9 +4,10 @@
   width: 100%;
   padding: 12px 24px;
   overflow: auto;
-  border-bottom: 1px solid #d3d3d3;
+  // border-bottom: 1px solid #d3d3d3;
   z-index: 101;
-  background-color: #fff;
+  background-color: rgba(#fff, 0.85);
+  backdrop-filter: blur(24px);
   transition: all 0.25s ease;
   box-shadow: $mainBoxShadow;
   @include scrollbars($scrollbarWidth, $dark, #d3d3d3);

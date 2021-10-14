@@ -93,11 +93,9 @@ export default {
       this.$emit("resetSearch")
     },
     handleScroll(e) {
-      const $appHeader = document.querySelector(".main-header")
-      const appHeaderHeight = $appHeader.clientHeight
-      window.scrollY > appHeaderHeight
-        ? (this.visible = true)
-        : (this.visible = false)
+      // const $appHeader = document.querySelector(".main-header")
+      // const appHeaderHeight = $appHeader.clientHeight
+      window.scrollY > 80 ? (this.visible = true) : (this.visible = false)
     },
     handleCategoryClick(categoryName) {
       // gsap.to(window, {
