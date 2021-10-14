@@ -15,7 +15,7 @@ async function bootstrap() {
   const configService = app.get<ConfigService>(ConfigService);
   const APP_PORT = configService.get('APP_PORT') || 3000;
   app.setGlobalPrefix('/api/v1');
-  app.use(express.static(join(process.cwd(), 'public')));
+  app.use('/public', express.static(join(process.cwd(), 'public')));
 
   const config = new DocumentBuilder()
     .setTitle('Uber Eats')
