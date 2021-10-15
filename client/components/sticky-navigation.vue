@@ -121,7 +121,6 @@ export default {
       )
     },
     onScrollItemChanged(event, currentItem, lastActiveItem) {
-      console.log(currentItem, lastActiveItem)
       const st = window.pageYOffset || document.documentElement.scrollTop
 
       if (currentItem && !this.isInViewport(currentItem)) {
