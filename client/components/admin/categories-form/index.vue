@@ -12,11 +12,14 @@
       <template
         v-if="defaultValues && typeof defaultValues['cover_image'] === 'string'"
       >
-        <v-img
-          class="mb-10"
-          max-height="350px"
-          :src="categoryImage({ cover_image: defaultValues['cover_image'] })"
-        ></v-img>
+        <div class="d-flex mt-4 mb-4 justify-center">
+          <v-img
+            class="mb-10"
+            max-width="450px"
+            max-height="350px"
+            :src="categoryImage({ cover_image: defaultValues['cover_image'] })"
+          ></v-img>
+        </div>
       </template>
       <v-text-field
         v-model="formFields['name']"
