@@ -17,7 +17,7 @@
         >
           <img class="product-box-image" :src="productImage(item)" alt="" />
           <div class="product-box-details">
-            {{ item.name }}
+            {{ item.name }} - <small>{{ item.price }}</small>
           </div>
         </div>
       </div>

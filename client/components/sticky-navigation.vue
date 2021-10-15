@@ -29,7 +29,7 @@
         <li v-for="category in categoriesWithProducts" :key="category.id">
           <a class="scrollactive-item" :href="`#${category.slug}`">
             <img :src="categoryImage(category)" alt="" />
-            <h6>{{ category.name }}</h6>
+            <h6>{{ renderName(category.name) }}</h6>
           </a>
         </li>
       </ul>
@@ -91,6 +91,9 @@ export default {
     handleResetSearch() {
       this.focusable = false
       this.$emit("resetSearch")
+    },
+    renderName(name) {
+      return name && name.split(",")[0]
     },
     handleScroll(e) {
       // const $appHeader = document.querySelector(".main-header")

@@ -10,7 +10,7 @@
     <app-modal name="product-content">
       <template slot="body" slot-scope="{ params }">
         <div class="modal-description">
-          <h2>{{ params.name }}</h2>
+          <h2>{{ renderName(params.name) }}</h2>
           <div class="modal-text" v-html="params.description"></div>
         </div>
         <div class="modal-image">
@@ -77,10 +77,7 @@
         />
       </div> -->
       <div class="main-header-image">
-        <img
-          src="https://cdn-a.william-reed.com/var/wrbm_gb_food_pharma/storage/images/publications/food-beverage-nutrition/foodnavigator.com/news/market-trends/the-farmers-dilemma-do-meat-reduction-policies-really-hurt-meat-industry-workers/12695417-1-eng-GB/The-farmers-dilemma-Do-meat-reduction-policies-really-hurt-meat-industry-workers_wrbm_large.jpg"
-          alt=""
-        />
+        <img src="/home-preview.jpeg" alt="" />
         <div class="title">
           <span>farsh<br />mazhor</span>
         </div>
@@ -207,6 +204,9 @@ export default {
           offsetY: 100,
         },
       })
+    },
+    renderName(name) {
+      return name && name.split(",")[0]
     },
   },
 }
