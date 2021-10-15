@@ -1,39 +1,42 @@
 <template>
   <client-only>
-    <scrollactive
-      ref="sticky-navigation"
-      class="sticky-navigation"
-      active-class="active"
-      :offset="180"
-      :class="{ active: visible }"
-      @itemchanged="onScrollItemChanged"
-    >
-      <ul>
-        <li>
-          <div id="custom-search">
-            <input
-              type="text"
-              name="search"
-              class="search-query"
-              placeholder="Знайти що?"
-              :value="value"
-              :class="{ focusable }"
-              @focusin="focusable = true"
-              @input="$emit('input', $event.target.value)"
-            />
-            <button class="custom-search__close" @click="handleResetSearch">
-              <font-awesome-icon :icon="['fas', 'times']" />
-            </button>
-          </div>
-        </li>
-        <li v-for="category in categoriesWithProducts" :key="category.id">
-          <a class="scrollactive-item" :href="`#${category.slug}`">
-            <img :src="categoryImage(category)" alt="" />
-            <h6>{{ renderName(category.name) }}</h6>
-          </a>
-        </li>
-      </ul>
-    </scrollactive>
+    <with-dimensions>
+      <scrollactive
+        ref="sticky-navigation"
+        class="sticky-navigation"
+        active-class="active"
+        :offset="width <= 576 ? 130 : 180"
+        :class="{ active: visible }"
+        @itemchanged="onScrollItemChanged"
+        slot-scope="{ width }"
+      >
+        <ul>
+          <li>
+            <div id="custom-search">
+              <input
+                type="text"
+                name="search"
+                class="search-query"
+                placeholder="Знайти що?"
+                :value="value"
+                :class="{ focusable }"
+                @focusin="focusable = true"
+                @input="$emit('input', $event.target.value)"
+              />
+              <button class="custom-search__close" @click="handleResetSearch">
+                <font-awesome-icon :icon="['fas', 'times']" />
+              </button>
+            </div>
+          </li>
+          <li v-for="category in categoriesWithProducts" :key="category.id">
+            <a class="scrollactive-item" :href="`#${category.slug}`">
+              <img :src="categoryImage(category)" alt="" />
+              <h6>{{ renderName(category.name) }}</h6>
+            </a>
+          </li>
+        </ul>
+      </scrollactive>
+    </with-dimensions>
   </client-only>
 </template>
 
@@ -43,6 +46,8 @@ import gsap from "gsap"
 import { CSSRulePlugin } from "gsap/CSSRulePlugin"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { ScrollToPlugin } from "gsap/ScrollToPlugin"
+import WithDimensions from "./with-dimensions.vue"
+import withDimensions from "./with-dimensions.vue"
 
 if (process.client) {
   gsap.registerPlugin(ScrollTrigger)
@@ -50,6 +55,7 @@ if (process.client) {
   gsap.registerPlugin(CSSRulePlugin)
 }
 export default {
+  components: { withDimensions },
   props: {
     value: {
       type: String,
@@ -59,6 +65,9 @@ export default {
       type: Array,
       default: () => [],
     },
+  },
+  componentns: {
+    WithDimensions,
   },
   data() {
     return {

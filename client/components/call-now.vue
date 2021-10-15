@@ -1,5 +1,5 @@
 <template>
-  <a href="tel:+380730262720" class="phone-call">
+  <a href="tel:0983557306" class="phone-call">
     <img src="/whatsapp.png" width="50" alt="Call Now" title="Call Now" />
   </a>
 </template>
