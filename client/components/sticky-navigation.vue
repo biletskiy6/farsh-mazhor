@@ -121,8 +121,8 @@ export default {
       )
     },
     onScrollItemChanged(event, currentItem, lastActiveItem) {
+      if (this.focusable) return
       const st = window.pageYOffset || document.documentElement.scrollTop
-
       if (currentItem && !this.isInViewport(currentItem)) {
         const scrollByX =
           st > this.lastScrollTop
