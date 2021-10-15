@@ -28,6 +28,9 @@ export class ProductService {
       take: limit,
       skip,
       relations: ['category'],
+      order: {
+        id: 'ASC'
+      }
     });
     return paginateResponse(data, page, limit);
   }
