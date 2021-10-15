@@ -53,8 +53,8 @@ import ErrorMixin from "@/mixins/error"
 export default {
   data() {
     return {
-      email: "victorbiletskiy82@gmail.com",
-      password: "12345678",
+      email: null,
+      password: null,
     }
   },
   mixins: [ErrorMixin],
