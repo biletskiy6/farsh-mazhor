@@ -6,6 +6,7 @@ body {
   font-family: "Montserrat";
   font-weight: 500;
   -webkit-font-smoothing: auto;
+  -webkit-overflow-scrolling: touch;
   @include scrollbars($scrollbarWidth + 2, $dark, #d3d3d3);
   .v-application {
     font-family: "Montserrat";
@@ -157,9 +158,18 @@ body {
 
   .tag {
     position: absolute;
-    top: 180px;
+    top: 100px;
     left: 152px;
     padding: 10px 30px;
+    &::after {
+      position: absolute;
+      content: "";
+      background-color: $black;
+      height: 1px;
+      width: 70%;
+      left: 50%;
+      bottom: 0;
+    }
   }
 
   .year {
@@ -184,24 +194,29 @@ body {
     left: 50%;
     transform: translate(-50%, -50%);
     display: flex;
-    width: 380px;
+    width: 460px;
+    height: 320px;
+    &::before {
+      position: absolute;
+      content: "";
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      background-color: rgba(255, 255, 255, 0.25);
+      // backdrop-filter: blur(2px);
+      z-index: 1;
+    }
 
     img {
-      width: 380px;
+      width: 460px;
+      height: 320px;
       display: block;
+      object-fit: cover;
       border-radius: 4px;
       opacity: 0;
       animation: appear-text 1s linear forwards;
       animation-delay: 1.4s;
-    }
-    &::before {
-      position: absolute;
-      content: "";
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 1;
     }
     &::after {
       content: "";
@@ -227,6 +242,7 @@ body {
 
   .line {
     position: absolute;
+    display: none;
     left: 360px;
     top: 200px;
     background: #000;
@@ -251,6 +267,7 @@ body {
 
   .tag-line {
     position: absolute;
+    display: none;
     bottom: -50px;
     padding: 10px 30px;
     color: grey;
@@ -415,8 +432,10 @@ body {
     }
     &-image {
       width: 320px;
+      height: 200px;
       img {
         width: 320px;
+        height: 200px;
       }
     }
   }

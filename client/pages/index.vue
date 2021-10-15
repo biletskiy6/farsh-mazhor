@@ -77,7 +77,7 @@
         />
       </div> -->
       <div class="main-header-image">
-        <img src="/home-preview.jpeg" alt="" />
+        <img src="/home-preview.jpg" alt="" />
         <div class="title">
           <span>farsh<br />mazhor</span>
         </div>
