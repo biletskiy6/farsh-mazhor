@@ -2,6 +2,7 @@ import {
   Inject,
   Injectable,
   InternalServerErrorException,
+  UnauthorizedException,
 } from '@nestjs/common';
 import {
   sign,
@@ -25,10 +26,10 @@ export class JwtService {
       return verify(token, this.jwtOptions.jwtSecret);
     } catch (e) {
       if (e instanceof TokenExpiredError) {
-        throw new GraphQLError('Expired erorr..');
+        throw new UnauthorizedException()
       }
       if (e instanceof JsonWebTokenError) {
-        throw new GraphQLError('Token is Invald');
+        throw new UnauthorizedException()
       }
     }
   }

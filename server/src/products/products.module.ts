@@ -22,7 +22,10 @@ export class ProductsModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
     consumer
       .apply(JwtMiddleware)
-      .exclude( { path: 'products', method: RequestMethod.GET },)
-      .forRoutes(ProductController);
+      .forRoutes(
+        { path: 'products', method: RequestMethod.POST },
+        { path: 'products', method: RequestMethod.PUT },
+        { path: 'products', method: RequestMethod.DELETE },
+      );
   }
 }

@@ -20,7 +20,10 @@ export class CategoryModule implements NestModule {
       configure(consumer: MiddlewareConsumer) {
         consumer
           .apply(JwtMiddleware)
-          .exclude( { path: 'categories', method: RequestMethod.GET },)
-          .forRoutes(CategoryController);
+          .forRoutes(
+            { path: 'categories', method: RequestMethod.POST },
+            { path: 'categories', method: RequestMethod.PUT },
+            { path: 'categories', method: RequestMethod.DELETE },
+          );
       }
 }

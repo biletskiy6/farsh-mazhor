@@ -14,6 +14,7 @@ export class JwtMiddleware implements NestMiddleware {
     private readonly userService: UserService,
   ) {}
   async use(request: Request, response: Response, next: NextFunction) {
+    console.log('request..');
     const headers = request.headers;
     const authorization = headers.authorization;
     if (!authorization) return next();
@@ -23,6 +24,6 @@ export class JwtMiddleware implements NestMiddleware {
       const user = await this.userService.findById(decodedToken['id']);
       request['user'] = user.excludePassword();
     }
-    return next();
+    next();
   }
 }
