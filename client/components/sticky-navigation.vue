@@ -2,9 +2,9 @@
   <client-only>
     <scrollactive
       ref="sticky-navigation"
-      :offset="120"
       class="sticky-navigation"
       active-class="active"
+      :offset="180"
       :class="{ active: visible }"
       @itemchanged="onScrollItemChanged"
     >

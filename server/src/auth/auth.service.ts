@@ -56,7 +56,7 @@ export class AuthService {
   }
   buildWrongCredentialsResponse() {
     throw new HttpException(
-      'Wrong Credentials',
+      'Неверный email или пароль',
       HttpStatus.UNPROCESSABLE_ENTITY,
     );
   }

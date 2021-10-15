@@ -73,9 +73,10 @@ export default {
 
   auth: {
     redirect: {
-      login: "/sign-in",
-      home: "/admin/",
+      login: "/sign-in/",
+      home: "/admin/categories",
     },
+    rewriteRedirects: false,
     strategies: {
       local: {
         endpoints: {

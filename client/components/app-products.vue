@@ -14,7 +14,7 @@
           v-if="category.products && category.products.length"
           class="app-category__content"
         >
-          <h2 class="content-title">{{ category.name }}</h2>
+          <h2 class="content-title">{{ renderName(category.name) }}</h2>
           <div class="app-category-products">
             <div
               v-for="product in category.products"
@@ -26,18 +26,17 @@
                 <div class="product-image">
                   <img :src="productImage(product)" alt="Product" />
                 </div>
-                <div v-if="false" class="product-box-details">
-                  {{ product.name }}
-                </div>
               </div>
-              <h3 class="product-title">{{ product.name }}</h3>
+              <h3 class="product-title">
+                {{ renderName(product.name) }}
+              </h3>
               <div class="product-description">
                 <p>
                   {{ product.excerpt }}
                 </p>
               </div>
               <div class="product-price">
-                {{ product.price }} ₴ (<small>1 кг</small>)
+                {{ product.price }}
               </div>
             </div>
           </div>
@@ -85,16 +84,24 @@ export default {
         return {
           ...category,
           products: category.products.filter((product) =>
-            [product.name, product.excerpt, category.name].some((predicate) =>
-              predicate.toLowerCase().includes(this.searchQuery.toLowerCase())
-            )
+            [product.name, product.excerpt, category.name].some((predicate) => {
+              if (!predicate) return false
+              return predicate
+                .toLowerCase()
+                .includes(this.searchQuery.toLowerCase())
+            })
           ),
         }
       })
     },
   },
+  methods: {
+    renderName(name) {
+      return name && name.split(",")[0]
+    },
+  },
   watch: {
-    searchQuery: _.debounce(function (newValue) {
+    searchQuery: _.debounce(function () {
       gsap.to(window, {
         duration: 1,
         scrollTo: {

@@ -1,11 +1,5 @@
 export const menuAdminList = [
   {
-    icon: "mdi-home",
-    title: "Dashboard",
-    exact: false,
-    to: "/admin/",
-  },
-  {
     icon: "mdi-google-ads",
     title: "Категории",
     to: "/admin/categories",
@@ -19,5 +13,10 @@ export const menuAdminList = [
     icon: "mdi-apps",
     title: "На сайт",
     to: "/",
+  },
+  {
+    icon: "mdi-logout",
+    title: "Выйти",
+    to: "/admin/logout",
   },
 ]

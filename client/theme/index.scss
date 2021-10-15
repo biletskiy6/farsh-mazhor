@@ -1006,9 +1006,14 @@ a {
   }
 }
 
-@media screen and (max-width: 1440px) {
+@media screen and (max-width: 1300px) {
   .app-category-product {
-    // width: calc(33.33% - 32px);
+    width: calc(25% - 32px);
+  }
+}
+@media screen and (max-width: 1150px) {
+  .app-category-product {
+    width: calc(33.333% - 32px);
   }
 }
 
@@ -1054,5 +1059,15 @@ a {
 @media screen and (max-width: 576px) {
   .app-category-product {
     width: calc(100% - 32px);
+  }
+  .app-container {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+}
+
+@media screen and (max-width: 576px) and (max-height: 600px) {
+  .main-header .tag {
+    top: 100px;
   }
 }

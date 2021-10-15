@@ -37,7 +37,9 @@ export class ProductService {
       .where('LOWER(product.name) like LOWER(:name)', {
         name: `%${query.toLowerCase()}%`,
       })
-      .getMany();
+      .leftJoinAndSelect("product.category", "category")
+      .getMany()
+
     return {
       data,
     };

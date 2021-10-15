@@ -16,7 +16,9 @@
           @click="$modal.show('product-content', item)"
         >
           <img class="product-box-image" :src="productImage(item)" alt="" />
-          <div class="product-box-details">{{ item.name }}</div>
+          <div class="product-box-details">
+            {{ item.name }}
+          </div>
         </div>
       </div>
     </div>
@@ -29,7 +31,7 @@ export default {
   name: "AppPopular",
   async mounted() {
     try {
-      await this.fetchProducts({ params: { type: "popular", limit: 6 } })
+      await this.fetchProducts({ params: { type: "popular" } })
     } catch (e) {}
   },
   computed: {

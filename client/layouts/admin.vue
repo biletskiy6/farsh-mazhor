@@ -32,9 +32,6 @@
       </v-btn>
       <v-toolbar-title v-text="title" />
       <v-spacer />
-      <v-btn icon @click.stop="rightDrawer = !rightDrawer">
-        <v-icon>mdi-menu</v-icon>
-      </v-btn>
     </v-app-bar>
     <v-main>
       <v-container>
@@ -55,13 +52,20 @@ export default {
   components: { AppSnackbar },
   mixins: [ErrorMixin],
   middleware: "auth",
+  head() {
+    return {
+      bodyAttrs: {
+        class: "admin",
+      },
+    }
+  },
   data() {
     return {
       menuAdminList,
       clipped: false,
-      drawer: false,
+      drawer: true,
       fixed: false,
-      miniVariant: false,
+      miniVariant: true,
       right: true,
       rightDrawer: false,
       title: "Панель администратора",

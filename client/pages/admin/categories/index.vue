@@ -1,14 +1,18 @@
 <template>
   <with-pagination :fetch-data="fetchAll">
-    <template slot-scope="{ page, limit, updateItemsPerPage, updatePage }">
+    <template
+      slot-scope="{ page, limit, total, updateItemsPerPage, updatePage }"
+    >
       <v-data-table
         :headers="headers"
         :loading="loading"
         :items="items"
         :page="page"
         :items-per-page="limit"
+        :server-items-length="total"
         :footer-props="{
           itemsPerPageOptions: [15, 25],
+          'items-per-page-text': 'Продуктов на странице',
         }"
         @update:items-per-page="updateItemsPerPage"
         @update:page="updatePage"

@@ -12,11 +12,14 @@
       <template
         v-if="defaultValues && typeof defaultValues['cover_image'] === 'string'"
       >
-        <v-img
-          class="mb-10"
-          max-height="350px"
-          :src="productImage({ cover_image: defaultValues['cover_image'] })"
-        ></v-img>
+        <div class="d-flex mt-4 mb-4 justify-center">
+          <v-img
+            class="mb-10"
+            max-width="450px"
+            max-height="350px"
+            :src="productImage({ cover_image: defaultValues['cover_image'] })"
+          ></v-img>
+        </div>
       </template>
       <v-text-field
         v-model="formFields['name']"
@@ -27,13 +30,19 @@
         name="input-7-1"
         label="Краткое Описание"
       ></v-textarea>
-      <v-text-field v-model="formFields['price']" label="Цена"></v-text-field>
+      <v-text-field
+        v-model="formFields['price']"
+        label="Цена"
+        hint=""
+        class="mt-3 mb-3"
+      ></v-text-field>
       <quill-editor
         v-model="formFields['description']"
         :content="formFields['description']"
       ></quill-editor>
 
       <v-autocomplete
+        class="mt-10"
         v-if="categories"
         v-model="formFields['category']"
         :items="categories"
@@ -49,7 +58,7 @@
 
       <v-file-input
         v-model="formFields['cover_image']"
-        placeholder="Картинка"
+        :placeholder="defaultValues ? 'Заменить картинку' : 'Картинка'"
       ></v-file-input>
 
       <v-btn

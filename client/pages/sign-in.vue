@@ -1,5 +1,6 @@
 <template>
   <v-app id="inspire">
+    <client-only><app-snackbar></app-snackbar></client-only>
     <v-content>
       <v-container fluid fill-height>
         <v-layout align-center justify-center>
@@ -46,13 +47,19 @@
 </template>
 <script>
 import { mapGetters, mapMutations } from "vuex"
-import { email, minLength, required } from 'vuelidate/lib/validators'
+import { email, minLength, required } from "vuelidate/lib/validators"
+import AppSnackbar from "@/components/notification/app-snackbar"
+import ErrorMixin from "@/mixins/error"
 export default {
   data() {
     return {
       email: "victorbiletskiy82@gmail.com",
       password: "12345678",
     }
+  },
+  mixins: [ErrorMixin],
+  components: {
+    AppSnackbar,
   },
   computed: {
     ...mapGetters({
@@ -65,16 +72,16 @@ export default {
   },
   methods: {
     ...mapMutations({
-      setError: 'error/setError',
-      setLoading: 'loading/setLoading',
-      resetLoading: 'loading/resetLoading',
+      setError: "error/setError",
+      setLoading: "loading/setLoading",
+      resetLoading: "loading/resetLoading",
     }),
     async handleSubmit() {
       try {
         this.$v.$touch()
         if (this.$v.$invalid) return
         this.setLoading()
-        await this.$auth.loginWith('local', {
+        await this.$auth.loginWith("local", {
           data: {
             email: this.email,
             password: this.password,

@@ -7,6 +7,9 @@ body {
   font-weight: 500;
   -webkit-font-smoothing: auto;
   @include scrollbars($scrollbarWidth + 2, $dark, #d3d3d3);
+  .v-application {
+    font-family: "Montserrat";
+  }
 }
 .logo {
   //position: absolute;

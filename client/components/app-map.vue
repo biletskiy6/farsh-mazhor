@@ -7,7 +7,9 @@ import mapboxgl from "mapbox-gl"
 import "mapbox-gl/dist/mapbox-gl.css"
 import "@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css"
 import MapboxLanguage from "@mapbox/mapbox-gl-language"
+import { isMobile } from "@/utils/mobileCheck"
 import { camelToSnake } from "@/utils/helpers"
+
 export default {
   name: "AppMap",
   model: {
@@ -86,19 +88,21 @@ export default {
         "name_ru",
       ])
 
-      this.map.dragPan.disable()
-      this.map.scrollZoom.disable()
+      if (this.isMobile()) {
+        this.map.dragPan.disable()
+        this.map.scrollZoom.disable()
 
-      this.map.on("touchstart", (event) => {
-        const e = event.originalEvent
-        if (e && "touches" in e) {
-          if (e.touches.length > 1) {
-            this.map.dragPan.enable()
-          } else {
-            this.map.dragPan.disable()
+        this.map.on("touchstart", (event) => {
+          const e = event.originalEvent
+          if (e && "touches" in e) {
+            if (e.touches.length > 1) {
+              this.map.dragPan.enable()
+            } else {
+              this.map.dragPan.disable()
+            }
           }
-        }
-      })
+        })
+      }
     },
     buildResult(data) {
       /* eslint-disable */
@@ -141,6 +145,7 @@ export default {
         .setLngLat([32.04610387190852, 46.91435637566413])
         .addTo(this.map)
     },
+    isMobile,
   },
   // watch: {
   //   defaultValues: {
