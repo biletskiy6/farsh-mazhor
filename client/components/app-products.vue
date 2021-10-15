@@ -1,6 +1,6 @@
 <template>
   <div class="app-container">
-    <h2 v-if="!loading && resultsEmpty" class="content-title">
+    <h2 v-if="!loading && resultsEmpty" class="not-found content-title">
       Товарів не знайдено, спробуйте, будь-ласка, ще раз
     </h2>
     <div v-else-if="filteredCategories" class="app-products distort">

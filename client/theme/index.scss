@@ -445,7 +445,9 @@ a {
   line-height: 40px;
   color: var(--text-color-dark);
   font-weight: 600;
-
+  &.not-found {
+    margin-bottom: 18px;
+  }
   span {
     font-weight: 400;
   }

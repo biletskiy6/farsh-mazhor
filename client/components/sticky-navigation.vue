@@ -121,12 +121,15 @@ export default {
       )
     },
     onScrollItemChanged(event, currentItem, lastActiveItem) {
+      console.log(currentItem, lastActiveItem)
       const st = window.pageYOffset || document.documentElement.scrollTop
-      const coefficient = st > this.lastScrollTop ? 1 : -2
+
       if (currentItem && !this.isInViewport(currentItem)) {
-        document
-          .querySelector(".sticky-navigation")
-          .scrollBy(currentItem.offsetLeft * coefficient, 0)
+        const scrollByX =
+          st > this.lastScrollTop
+            ? currentItem.offsetLeft
+            : (lastActiveItem.offsetWidth + 40) * -1
+        document.querySelector(".sticky-navigation").scrollBy(scrollByX, 0)
       }
       this.lastScrollTop = st <= 0 ? 0 : st
     },
