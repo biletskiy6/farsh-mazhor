@@ -1,3 +1,4 @@
+import { AuthenticationMiddleware } from './../authentication/authentication.middleware';
 import { ProductController } from './../products/products.controller';
 import { JwtMiddleware } from './../jwt/jwt.middleware';
 import { CategoryController } from './category.controller';
@@ -19,7 +20,7 @@ import { UserService } from 'src/users/users.service';
 export class CategoryModule implements NestModule {
       configure(consumer: MiddlewareConsumer) {
         consumer
-          .apply(JwtMiddleware)
+          .apply(JwtMiddleware, AuthenticationMiddleware)
           .forRoutes(
             { path: 'categories', method: RequestMethod.POST },
             { path: 'categories', method: RequestMethod.PUT },

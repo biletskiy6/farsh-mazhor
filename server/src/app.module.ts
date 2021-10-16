@@ -1,3 +1,4 @@
+import { AuthenticationMiddleware } from './authentication/authentication.middleware';
 import { CategoryModule } from './categories/category.module';
 import {
   MiddlewareConsumer,
@@ -17,6 +18,7 @@ import { AuthModule } from './auth/auth.module';
 import { VerificationsModule } from './verifications/verifications.module';
 import { MailerModule } from '@nestjs-modules/mailer';
 import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
+import { AuthenticationModule } from './authentication/authentication.module';
 import config from './ormconfig';
 
 
@@ -72,15 +74,10 @@ console.log(__dirname);
     AuthModule,
     VerificationsModule,
     CategoryModule,
+    AuthenticationModule,
   ],
   controllers: [],
   providers: [],
 })
+
 export class AppModule {}
-// export class AppModule implements NestModule {
-//   configure(consumer: MiddlewareConsumer) {
-//     consumer
-//       .apply(JwtMiddleware)
-//       .forRoutes({ path: '*', method: RequestMethod.ALL});
-//   }
-// }
