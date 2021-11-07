@@ -3,7 +3,7 @@
     <h2 v-if="!loading && resultsEmpty" class="not-found content-title">
       Товарів не знайдено, спробуйте, будь-ласка, ще раз
     </h2>
-    <div v-else-if="filteredCategories" class="app-products distort">
+    <div v-else-if="filteredCategories" v-lazy-container="{ selector: 'img' }" class="app-products distort">
       <section
         v-for="category in filteredCategories"
         :id="category.slug"
@@ -24,7 +24,7 @@
             >
               <div class="product-image-container">
                 <div class="product-image">
-                  <img :src="productImage(product)" alt="Product" />
+                  <img :data-src="productImage(product)" alt="Product" />
                 </div>
               </div>
               <h3 class="product-title">

@@ -29,6 +29,7 @@ export default {
     { src: "@/plugins/quill-editor", ssr: false },
     { src: "@/plugins/vue-draggable", ssr: false },
     { src: "@/plugins/vue-scrollactive", ssr: false },
+    { src: "@/plugins/lazy-load", ssr: false },
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components

@@ -6,7 +6,7 @@
       max-width="300"
       type="card"
     ></v-skeleton-loader>
-    <div v-else class="app-popular distort">
+    <div v-else class="app-popular distort" v-lazy-container="{ selector: 'img' }">
       <h2 class="content-title">Нове та популярне</h2>
       <div class="grid-list">
         <div
@@ -15,7 +15,7 @@
           class="grid-list__item product-box"
           @click="$modal.show('product-content', item)"
         >
-          <img class="product-box-image" :src="productImage(item)" alt="" />
+          <img :data-src="productImage(item)" class="product-box-image"  alt="" />
           <div class="product-box-details">
             {{ item.name }} - <small>{{ item.price }}</small>
           </div>

@@ -25,6 +25,7 @@ export default {
     // window.addEventListener("scroll", this.hideOnPageEnd)
     ScrollTrigger.create({
       start: "top -80",
+       endTrigger: ".footer-copyrights",
 
       toggleClass: {
         className: "phone-call--active",
