@@ -12,7 +12,8 @@ export default {
         content:
           "height=device-height, width=device-width, initial-scale=1.0,minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, target-densitydpi=device-dpi",
       },
-      { hid: "description", name: "description", content: "" },
+      { hid: "description", name: "description", 
+      content: "Фарш Мажор Миколаїв Николаев — магазин мяса и полуфабрикатов. Свежее домашее мясо. Мясо, вареники, пельмени, котлеты, голубцы, перец фаршированный " },
       { name: "format-detection", content: "telephone=no" },
     ],
     link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
