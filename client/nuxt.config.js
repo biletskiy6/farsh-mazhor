@@ -79,7 +79,7 @@ export default {
   auth: {
     redirect: {
       login: "/sign-in/",
-      home: "/admin/categories",
+      home: "/manager/categories",
     },
     rewriteRedirects: false,
     strategies: {

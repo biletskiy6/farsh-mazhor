@@ -32,7 +32,7 @@
                     class="mr-2"
                     @click="
                       $router.push({
-                        name: 'admin-categories-id-edit',
+                        name: 'manager-categories-id-edit',
                         params: { id: category.id },
                       })
                     "
@@ -59,7 +59,7 @@
               color="primary"
               dark
               class="mb-2"
-              @click="$router.push({ name: 'admin-categories-create' })"
+              @click="$router.push({ name: 'manager-categories-create' })"
             >
               Новая категория
             </v-btn>

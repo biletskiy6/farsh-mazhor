@@ -2,12 +2,12 @@ export const menuAdminList = [
   {
     icon: "mdi-google-ads",
     title: "Категории",
-    to: "/admin/categories",
+    to: "/manager/categories",
   },
   {
     icon: "mdi-apple",
     title: "Товары",
-    to: "/admin/products",
+    to: "/manager/products",
   },
   {
     icon: "mdi-apps",
@@ -17,6 +17,6 @@ export const menuAdminList = [
   {
     icon: "mdi-logout",
     title: "Выйти",
-    to: "/admin/logout",
+    to: "/manager/logout",
   },
 ]

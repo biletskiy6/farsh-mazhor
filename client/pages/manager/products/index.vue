@@ -42,7 +42,7 @@
                 color="primary"
                 dark
                 class="mb-2"
-                @click="$router.push({ name: 'admin-products-create' })"
+                @click="$router.push({ name: 'manager-products-create' })"
               >
                 Добавить товар
               </v-btn>
@@ -88,7 +88,7 @@
               class="mr-2"
               @click="
                 $router.push({
-                  name: 'admin-products-id-edit',
+                  name: 'manager-products-id-edit',
                   params: { id: item.id },
                 })
               "
