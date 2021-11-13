@@ -6,7 +6,7 @@
         class="sticky-navigation"
         active-class="active"
         :offset="width <= 576 ? 130 : 180"
-        :class="{ active: visible }"
+        :class="{ 'active': visible }"
         @itemchanged="onScrollItemChanged"
         slot-scope="{ width }"
       >
@@ -30,7 +30,6 @@
           </li>
           <li v-for="category in categoriesWithProducts" :key="category.id">
             <a class="scrollactive-item" :href="`#${category.slug}`">
-              <img :src="categoryImage(category)" alt="" />
               <h6>{{ renderName(category.name) }}</h6>
             </a>
           </li>
@@ -42,20 +41,10 @@
 
 <script>
 import { mapGetters } from "vuex"
-import gsap from "gsap"
-import { CSSRulePlugin } from "gsap/CSSRulePlugin"
-import { ScrollTrigger } from "gsap/ScrollTrigger"
-import { ScrollToPlugin } from "gsap/ScrollToPlugin"
 import WithDimensions from "./with-dimensions.vue"
-import withDimensions from "./with-dimensions.vue"
 
-if (process.client) {
-  gsap.registerPlugin(ScrollTrigger)
-  gsap.registerPlugin(ScrollToPlugin)
-  gsap.registerPlugin(CSSRulePlugin)
-}
 export default {
-  components: { withDimensions },
+  components: { WithDimensions },
   props: {
     value: {
       type: String,
@@ -65,13 +54,16 @@ export default {
       type: Array,
       default: () => [],
     },
+    visible: {
+      type: Boolean,
+      default: false
+    }
   },
   componentns: {
     WithDimensions,
   },
   data() {
     return {
-      visible: false,
       focusable: false,
       lastScrollTop: 0,
     }
@@ -103,11 +95,6 @@ export default {
     },
     renderName(name) {
       return name && name.split(",")[0]
-    },
-    handleScroll(e) {
-      // const $appHeader = document.querySelector(".main-header")
-      // const appHeaderHeight = $appHeader.clientHeight
-      window.scrollY > 80 ? (this.visible = true) : (this.visible = false)
     },
     handleCategoryClick(categoryName) {
       // gsap.to(window, {

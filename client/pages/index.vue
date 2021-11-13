@@ -4,9 +4,10 @@
       v-model="searchQuery"
       :categories="categories"
       @resetSearch="handleResetSearch"
+      :visible="showStickyNavigation"
     ></sticky-navigation>
-    <back-to-top></back-to-top>
-    <call-now></call-now>
+    <back-to-top :visible="showNavigationComponents"></back-to-top>
+    <call-now :visible="showNavigationComponents"></call-now>
     <app-modal name="product-content">
       <template slot="body" slot-scope="{ params }">
         <div class="modal-description">
@@ -158,6 +159,8 @@ export default {
   data() {
     return {
       searchQuery: "",
+      showNavigationComponents: false,
+      showStickyNavigation: false
     }
   },
   computed: {
@@ -168,13 +171,12 @@ export default {
   },
   async mounted() {
     try {
+      window.addEventListener('scroll', this.handleScroll)
       await this.fetchCategories()
-      // this.distortContent()
-      // window.addEventListener("scroll", this.distortContent)
     } catch (e) {}
   },
   beforeDestroy() {
-    // window.removeEventListener("scroll", this.distortContent)
+    window.removeEventListener("scroll", this.handleScroll)
   },
   methods: {
     ...mapActions({
@@ -195,6 +197,21 @@ export default {
         requestAnimationFrame(callDistort)
       }
       callDistort()
+    },
+    handleScroll() {
+      const documentHeight = document.body.scrollHeight;
+      const currentScroll = window.scrollY + window.innerHeight;
+
+
+      if(currentScroll >= documentHeight) {
+        this.showNavigationComponents = false
+      } else if(window.scrollY > 300) {
+        this.showNavigationComponents = true
+        this.showStickyNavigation = true
+      } else {
+        this.showNavigationComponents = false
+        this.showStickyNavigation = false
+      }
     },
     handleContactsClick() {
       gsap.to(window, {

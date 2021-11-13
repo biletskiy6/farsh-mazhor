@@ -1,56 +1,17 @@
 <template>
-  <a href="tel:0983557306" class="phone-call">
+  <a href="tel:0983557306" class="phone-call" :class="{ 'phone-call--active': visible }">
     <img src="/whatsapp.png" width="50" alt="Call Now" title="Call Now" />
   </a>
 </template>
 
 <script>
-import gsap from "gsap"
-import { CSSRulePlugin } from "gsap/CSSRulePlugin"
-import { ScrollTrigger } from "gsap/ScrollTrigger"
-import { ScrollToPlugin } from "gsap/ScrollToPlugin"
-if (process.client) {
-  gsap.registerPlugin(ScrollTrigger)
-  gsap.registerPlugin(ScrollToPlugin)
-  gsap.registerPlugin(CSSRulePlugin)
-}
 export default {
   name: "call-now",
-  mounted() {
-    // if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
-    //   document
-    //     .querySelector(".phone-call")
-    //     .classList.remove("phone-call--active")
-    // }
-    // window.addEventListener("scroll", this.hideOnPageEnd)
-    ScrollTrigger.create({
-      start: "top -80",
-       endTrigger: ".footer-copyrights",
-
-      toggleClass: {
-        className: "phone-call--active",
-        targets: ".phone-call",
-      },
-      // onToggle: (self) =>
-      //   self.isActive
-      //     ? document.body.classList.add("header-pin")
-      //     : document.body.classList.remove("header-pin"),
-    })
-  },
-  beforeDestroy() {
-    // window.removeEventListener("scroll", this.hideOnPageEnd)
-  },
-  methods: {
-    // hideOnPageEnd() {
-    //   if (
-    //     window.innerHeight + window.scrollY >=
-    //     document.body.offsetHeight - 40
-    //   ) {
-    //     document
-    //       .querySelector(".phone-call")
-    //       .classList.remove("phone-call--active")
-    //   }
-    // },
-  },
+  props: {
+    visible: {
+      type: Boolean,
+      default: false
+    }
+  }
 }
 </script>

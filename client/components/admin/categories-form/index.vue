@@ -30,11 +30,7 @@
       <!--        name="input-7-1"-->
       <!--        label="Описание"-->
       <!--      ></v-textarea>-->
-      <v-file-input
-        v-model="formFields['cover_image']"
-        placeholder="Картинка"
-      ></v-file-input>
-
+    
       <v-btn
         type="submit"
         :loading="loading"

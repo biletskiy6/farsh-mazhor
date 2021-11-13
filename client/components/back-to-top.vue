@@ -1,5 +1,5 @@
 <template>
-  <div @click="toTop" class="back-to-top progress-wrap">
+  <div @click="toTop" class="back-to-top progress-wrap" :class="{ 'active-progress': visible }">
     <div class="back-to-top__icon">
       <font-awesome-icon icon="angle-up" />
     </div>
@@ -15,24 +15,15 @@
 </template>
 
 <script>
-import gsap from "gsap"
-import { CSSRulePlugin } from "gsap/CSSRulePlugin"
-import { ScrollTrigger } from "gsap/ScrollTrigger"
-import { ScrollToPlugin } from "gsap/ScrollToPlugin"
-if (process.client) {
-  gsap.registerPlugin(ScrollTrigger)
-  gsap.registerPlugin(ScrollToPlugin)
-  gsap.registerPlugin(CSSRulePlugin)
-}
+import gsap from 'gsap'
 export default {
+  props: {
+    visible: {
+      type: Boolean,
+      default: false
+    }
+  },
   mounted() {
-    ScrollTrigger.create({
-      start: "top -80",
-      toggleClass: {
-        className: "active-progress",
-        targets: ".progress-wrap",
-      },
-    })
     const progressPath = document.querySelector(".progress-circle path")
     const pathLength = progressPath.getTotalLength()
     progressPath.style.transition = progressPath.style.WebkitTransition = "none"
