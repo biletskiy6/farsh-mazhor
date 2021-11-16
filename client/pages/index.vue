@@ -79,9 +79,6 @@
       </div> -->
       <div class="main-header-image">
         <img src="/home-preview.jpg" alt="" />
-        <div class="title">
-          <span>farsh<br />mazhor</span>
-        </div>
         <!-- <div class="tag-line">
           <span>Оглянути наші товари</span>
         </div> -->
