@@ -25,10 +25,6 @@
           :page="page"
           :items-per-page="limit"
           :server-items-length="total"
-          :footer-props="{
-            itemsPerPageOptions: [15, 25],
-            'items-per-page-text': 'Продуктов на странице',
-          }"
           @update:items-per-page="updateItemsPerPage"
           @update:page="updatePage"
         >

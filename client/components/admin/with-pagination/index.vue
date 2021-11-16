@@ -19,6 +19,7 @@ export default {
       const response = await this.fetchData({
         params: { limit: this.limit, page: this.page },
       })
+      console.log(response);
       this.total = response.total
     } catch (e) {}
   },
